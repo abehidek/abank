@@ -1,7 +1,7 @@
 defmodule Abank.Auth do
   import Ecto.Query, warn: false
 
-  alias Abank.Auth.User
+  alias Abank.Auth.{User, UserSession}
 
   def register_user(params) do
     params
@@ -22,5 +22,29 @@ defmodule Abank.Auth do
     else
       {:error, %{result: "Invalid email or password", status: :forbidden}}
     end
+  end
+
+  def get_user_by_session_token(token) do
+    # IO.inspect(token)
+    {:ok, query} = UserSession.verify_session_token_query(token)
+    user = Abank.Repo.one(query)
+
+    if user do
+      {:ok, user}
+    else
+      {:error, %{result: "Session not found", status: :forbidden}}
+    end
+  end
+
+  def create_user_session_token(user) do
+    {token, user_session} = UserSession.build_session_token(user)
+    Abank.Repo.insert!(user_session)
+    token
+  end
+
+  def delete_user_session_token(token) do
+    token = UserSession.get_token(token)
+    result = Abank.Repo.delete_all(token)
+    {:ok, result}
   end
 end
