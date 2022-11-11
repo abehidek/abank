@@ -1,0 +1,4 @@
+# nix elixir setup
+.direnv
+.nix-hex
+.nix-mix
