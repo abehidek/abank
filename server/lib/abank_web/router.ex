@@ -7,6 +7,8 @@ defmodule AbankWeb.Router do
 
   scope "/api", AbankWeb do
     pipe_through :api
+
+    resources "/example", ExampleController, only: [:index]
   end
 
   # Enables LiveDashboard only for development
