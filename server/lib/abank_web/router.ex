@@ -12,6 +12,7 @@ defmodule AbankWeb.Router do
 
     scope "/users" do
       post "/register", UserRegistrationController, :create
+      post "/login", UserSessionController, :create
     end
   end
 

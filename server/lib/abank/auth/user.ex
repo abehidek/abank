@@ -56,4 +56,16 @@ defmodule Abank.Auth.User do
       changeset
     end
   end
+
+  # Authentication
+
+  def valid_password?(%__MODULE__{hashed_password: hashed_password}, password)
+      when is_binary(hashed_password) and byte_size(password) > 0 do
+    Bcrypt.verify_pass(password, hashed_password)
+  end
+
+  def valid_password?(_, _) do
+    Bcrypt.no_user_verify()
+    false
+  end
 end
