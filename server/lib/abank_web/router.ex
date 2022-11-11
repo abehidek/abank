@@ -9,6 +9,10 @@ defmodule AbankWeb.Router do
     pipe_through :api
 
     resources "/example", ExampleController, only: [:index]
+
+    scope "/users" do
+      post "/register", UserRegistrationController, :create
+    end
   end
 
   # Enables LiveDashboard only for development
