@@ -24,9 +24,10 @@ defmodule AuthPocWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", AuthPocWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", AuthPocWeb do
+    pipe_through :api
+    post "/users/register", UserRegistrationController, :create
+  end
 
   # Enables LiveDashboard only for development
   #
