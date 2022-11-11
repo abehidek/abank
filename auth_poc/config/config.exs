@@ -13,9 +13,9 @@ config :auth_poc,
 # Configures the endpoint
 config :auth_poc, AuthPocWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: AuthPocWeb.ErrorView, accepts: ~w(json), layout: false],
+  render_errors: [view: AuthPocWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: AuthPoc.PubSub,
-  live_view: [signing_salt: "QACmw6n2"]
+  live_view: [signing_salt: "vRrB2L3/"]
 
 # Configures the mailer
 #
@@ -28,6 +28,16 @@ config :auth_poc, AuthPoc.Mailer, adapter: Swoosh.Adapters.Local
 
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false
+
+# Configure esbuild (the version is required)
+config :esbuild,
+  version: "0.14.29",
+  default: [
+    args:
+      ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+    cd: Path.expand("../assets", __DIR__),
+    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+  ]
 
 # Configures Elixir's Logger
 config :logger, :console,

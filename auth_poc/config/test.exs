@@ -17,7 +17,7 @@ config :auth_poc, AuthPoc.Repo,
 # you can enable the server option below.
 config :auth_poc, AuthPocWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "2vqgz9r34kX/upVamBLHxtZeoa9b2DXGzFMVppaxtBxl7MrlVU7EDt/QqBZiqbVz",
+  secret_key_base: "ouhAUifCeewu7PUuWMvQTPBdgH9PkWXkZ0SMIxAKWFFFrugItiZLI6lZ8ytV6O4f",
   server: false
 
 # In test we don't send emails.

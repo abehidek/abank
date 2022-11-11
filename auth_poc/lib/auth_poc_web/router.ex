@@ -1,13 +1,29 @@
 defmodule AuthPocWeb.Router do
   use AuthPocWeb, :router
 
+  pipeline :browser do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_root_layout, {AuthPocWeb.LayoutView, :root}
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  scope "/api", AuthPocWeb do
-    pipe_through :api
+  scope "/", AuthPocWeb do
+    pipe_through :browser
+
+    get "/", PageController, :index
   end
+
+  # Other scopes may use custom stacks.
+  # scope "/api", AuthPocWeb do
+  #   pipe_through :api
+  # end
 
   # Enables LiveDashboard only for development
   #
@@ -20,7 +36,7 @@ defmodule AuthPocWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
-      pipe_through [:fetch_session, :protect_from_forgery]
+      pipe_through :browser
 
       live_dashboard "/dashboard", metrics: AuthPocWeb.Telemetry
     end
@@ -32,7 +48,7 @@ defmodule AuthPocWeb.Router do
   # node running the Phoenix server.
   if Mix.env() == :dev do
     scope "/dev" do
-      pipe_through [:fetch_session, :protect_from_forgery]
+      pipe_through :browser
 
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end

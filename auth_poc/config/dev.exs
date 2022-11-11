@@ -23,8 +23,11 @@ config :auth_poc, AuthPocWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "Ib/AEVgK8LVaHjdGK9Myw6/fnNxeG4SHh2NvGeBSisHKTH2D3FG1IYCdviZOq89T",
-  watchers: []
+  secret_key_base: "w0nX1XK2aPQrY8dZpBWHnHcJv5VaBIIz2hhRJXi1MxuUmuKgnwR+3I9eKTQO6nZb",
+  watchers: [
+    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+  ]
 
 # ## SSL Support
 #
@@ -49,6 +52,16 @@ config :auth_poc, AuthPocWeb.Endpoint,
 # If desired, both `http:` and `https:` keys can be
 # configured to run both http and https servers on
 # different ports.
+
+# Watch static and templates for browser reloading.
+config :auth_poc, AuthPocWeb.Endpoint,
+  live_reload: [
+    patterns: [
+      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"lib/auth_poc_web/(live|views)/.*(ex)$",
+      ~r"lib/auth_poc_web/templates/.*(eex)$"
+    ]
+  ]
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
