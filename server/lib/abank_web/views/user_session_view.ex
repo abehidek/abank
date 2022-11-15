@@ -1,16 +1,17 @@
 defmodule AbankWeb.UserSessionView do
   use AbankWeb, :view
+  alias AbankWeb.UserView
 
-  def render("create.json", %{params: %{user: user}}) do
+  def render("create.json", %{user: user}) do
     %{
-      message: "Authenticated with success",
-      user: user
+      message: "Authenticated with success.",
+      user: UserView.render("user.json", user: user)
     }
   end
 
   def render("show.json", %{user: user}) do
     %{
-      user: user
+      user: UserView.render("user.json", user: user)
     }
   end
 

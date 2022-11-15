@@ -66,7 +66,7 @@ const Login: NextPage = () => {
 
     console.log(response)
   }
-  console.log(auth.data)
+
 
   return (
     <>

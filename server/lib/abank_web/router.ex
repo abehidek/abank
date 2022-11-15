@@ -8,13 +8,11 @@ defmodule AbankWeb.Router do
   scope "/api", AbankWeb do
     pipe_through :api
 
-    resources "/example", ExampleController, only: [:index]
-
     scope "/users" do
-      post "/register", UserRegistrationController, :create
-      post "/login", UserSessionController, :create
-      delete "/logout", UserSessionController, :delete
       get "/me", UserSessionController, :show
+      post "/login", UserSessionController, :create
+      post "/register", UserRegistrationController, :create
+      delete "/logout", UserSessionController, :delete
     end
   end
 

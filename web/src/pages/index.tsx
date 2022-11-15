@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { NextPage } from "next"
+import Loading from "../components/Loading"
 import Base from "../layouts/Base"
 
 const api = "http://localhost:4000/api"
@@ -14,6 +15,9 @@ const Home: NextPage = () => {
       },
     }).then(res => res.json())
   )
+
+  if (auth.isLoading) return <Loading />
+
   return (
     <Base>
       Index

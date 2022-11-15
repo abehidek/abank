@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import Loading from "./Loading";
 
 const api = "http://localhost:4000/api"
 
@@ -29,11 +30,13 @@ export default function Navbar() {
     console.log(response)
   }
 
+  if (auth.isLoading) return <Loading />
+
   return (
     <div className="flex gap-5">
       <h1><Link href="/">Abank</Link></h1>
       <div className="flex gap-5">
-        {auth.data.user
+        {'user' in auth.data
           ? (
             <>
             <h3>Hello {auth.data.user.email}</h3>

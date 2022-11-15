@@ -17,7 +17,7 @@ defmodule AbankWeb.UserSessionController do
       conn
       |> put_status(:ok)
       |> put_resp_cookie("auth_token", token, @session_cookie)
-      |> render("create.json", params: %{user: user})
+      |> render("create.json", %{user: user})
     end
   end
 
