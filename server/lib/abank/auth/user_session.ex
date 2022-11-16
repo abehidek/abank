@@ -24,6 +24,15 @@ defmodule Abank.Auth.UserSession do
      }}
   end
 
+  def validate_max_sessions_query(user) do
+    query =
+      from session in Abank.Auth.UserSession,
+        where: session.user_id == ^user.id,
+        select: count()
+
+    {:ok, query}
+  end
+
   def verify_session_token_query(token) do
     query =
       from token in get_token(token),

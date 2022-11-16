@@ -11,9 +11,8 @@ defmodule AbankWeb.UserSessionController do
     IO.inspect(email)
     IO.inspect(password)
 
-    with {:ok, user} <- Auth.get_user_by_email_and_password(email, password) do
-      token = Auth.create_user_session_token(user)
-
+    with {:ok, user} <- Auth.get_user_by_email_and_password(email, password),
+         {:ok, token} <- Auth.create_user_session_token(user) do
       conn
       |> put_status(:ok)
       |> put_resp_cookie("auth_token", token, @session_cookie)

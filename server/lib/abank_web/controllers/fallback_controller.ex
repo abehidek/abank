@@ -7,4 +7,13 @@ defmodule AbankWeb.FallbackController do
     |> put_view(AbankWeb.ErrorView)
     |> render("error.json", result: result)
   end
+
+  def call(conn, {:error, result}) do
+    IO.inspect(result)
+
+    conn
+    |> put_status(500)
+    |> put_view(AbankWeb.ErrorView)
+    |> render("error.json", result: "Something wrong happened")
+  end
 end

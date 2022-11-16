@@ -39,7 +39,21 @@ defmodule Abank.Auth do
   def create_user_session_token(user) do
     {token, user_session} = UserSession.build_session_token(user)
     Abank.Repo.insert!(user_session)
-    token
+    {:ok, token}
+    # {:ok, query} = UserSession.validate_max_sessions_query(user)
+
+    # if query |> Abank.Repo.one() > 2 do
+    #   {:error,
+    #    %{
+    #      result:
+    #        "Too many sessions (more than 3), logout from any of your sessions or delete them",
+    #      status: 401
+    #    }}
+    # else
+    #   {token, user_session} = UserSession.build_session_token(user)
+    #   Abank.Repo.insert!(user_session)
+    #   {:ok, token}
+    # end
   end
 
   def delete_user_session_token(token) do
