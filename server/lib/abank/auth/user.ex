@@ -11,6 +11,9 @@ defmodule Abank.Auth.User do
     field :email, :string
     field :hashed_password, :string, redact: false
     field :confirmed_at, :naive_datetime
+    field :cpf, :string
+    field :address, :string
+    field :avatar_url, :string
 
     timestamps()
 
@@ -19,7 +22,8 @@ defmodule Abank.Auth.User do
 
   def registration_changeset(params, opts \\ []) do
     %__MODULE__{}
-    |> cast(params, [:email, :password])
+    |> cast(params, [:email, :password, :cpf, :address])
+    |> validate_required([:cpf, :address])
     |> validate_email()
     |> validate_password(opts)
   end
