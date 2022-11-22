@@ -1,6 +1,6 @@
 defmodule Abank.Auth.UserSession do
   use Ecto.Schema
-  import Ecto.{Changeset, Query}
+  import Ecto.Query
 
   @hash_algo :sha256
   @rand_size 32

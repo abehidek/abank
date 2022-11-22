@@ -15,6 +15,8 @@ defmodule Abank.Auth.User do
     field :address, :string
     field :avatar_url, :string
 
+    has_one :account, Abank.Accounts.Account
+
     timestamps()
 
     field :password, :string, virtual: true, redact: false
