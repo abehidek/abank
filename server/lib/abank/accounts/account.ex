@@ -13,6 +13,14 @@ defmodule Abank.Accounts.Account do
 
     belongs_to :user, Abank.Auth.User, foreign_key: :user_id, references: :id
 
+    has_many :from_transactions, Abank.Transactions.Transaction,
+      foreign_key: :from_account_number,
+      references: :number
+
+    has_many :to_transactions, Abank.Transactions.Transaction,
+      foreign_key: :to_account_number,
+      references: :number
+
     timestamps()
   end
 
@@ -21,5 +29,6 @@ defmodule Abank.Accounts.Account do
     |> cast(params, @fields)
     |> validate_required([:number, :user_id])
     |> unique_constraint([:user_id])
+    |> unique_constraint([:number])
   end
 end
