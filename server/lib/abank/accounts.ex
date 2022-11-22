@@ -1,6 +1,22 @@
 defmodule Abank.Accounts do
   alias Abank.Accounts.{Account}
 
+  def get_account_by_user(user) do
+    {:ok, query} = Account.get_account_by_user(user)
+
+    account =
+      query
+      |> Abank.Repo.one()
+
+    IO.inspect(account)
+
+    if account do
+      {:ok, account}
+    else
+      {:error, %{result: "Account not found", status: :forbidden}}
+    end
+  end
+
   def create(params) do
     params
     |> Account.changeset()

@@ -16,6 +16,10 @@ defmodule AbankWeb.Router do
       post "/register", UserRegistrationController, :create
       delete "/logout", UserSessionController, :delete
     end
+
+    scope "/test" do
+      get "/accounts", AccountsController, :show
+    end
   end
 
   # Enables LiveDashboard only for development

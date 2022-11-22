@@ -1,6 +1,7 @@
 defmodule Abank.Accounts.Account do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
 
   @fields [:number, :balance_in_cents, :score, :user_id]
 
@@ -30,5 +31,14 @@ defmodule Abank.Accounts.Account do
     |> validate_required([:number, :user_id])
     |> unique_constraint([:user_id])
     |> unique_constraint([:number])
+  end
+
+  def get_account_by_user(user) do
+    query =
+      from account in __MODULE__,
+        where: [user_id: ^user.id],
+        select: account
+
+    {:ok, query}
   end
 end
