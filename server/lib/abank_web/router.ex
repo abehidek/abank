@@ -19,6 +19,7 @@ defmodule AbankWeb.Router do
 
     scope "/test" do
       get "/accounts", AccountsController, :show
+      post "/accounts", AccountsController, :create
     end
   end
 
