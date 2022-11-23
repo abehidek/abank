@@ -18,7 +18,7 @@ defmodule Abank.Transactions do
       IO.puts(from_account.balance_in_cents)
       {:ok, from_account}
     else
-      {:error, %{result: result, status: :forbidden}} -> {:error, %{result: result, status: :forbidden}}
+      {:error, %{result: result, status: status}} -> {:error, %{result: result, status: status}}
     end
   end
 end

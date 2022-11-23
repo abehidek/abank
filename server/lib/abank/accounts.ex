@@ -8,12 +8,10 @@ defmodule Abank.Accounts do
       query
       |> Abank.Repo.one()
 
-    IO.inspect(account)
-
     if account do
       {:ok, account}
     else
-      {:error, %{result: "Account not found", status: :forbidden}}
+      {:error, %{result: "Account not found", status: 403}}
     end
   end
 
