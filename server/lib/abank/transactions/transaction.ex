@@ -13,6 +13,8 @@ defmodule Abank.Transactions.Transaction do
 
   @required Enum.reject(@fields, fn x -> x == :description end)
 
+  @derive {Jason.Encoder, only: @fields ++ [:id]}
+
   schema "transactions" do
     field :type, :string
     field :amount_in_cents, :integer

@@ -13,12 +13,31 @@ defmodule Abank.Transactions do
   defp handle_create({:ok, %Transaction{}} = result), do: result
   defp handle_create({:error, result}), do: {:error, %{result: result, status: :bad_request}}
 
-  def transfer(user, _to_account) do
+  def transfer(params, user, type) do
     with {:ok, from_account} <- Accounts.get_account_by_user(user) do
-      IO.puts(from_account.balance_in_cents)
-      {:ok, from_account}
-    else
-      {:error, %{result: result, status: status}} -> {:error, %{result: result, status: status}}
+      params = params |> Map.put("from_account_number", from_account.number)
+
+      result =
+        case type do
+          "pix" -> pix(params)
+          "ted" -> ted(params)
+        end
+
+      with {:ok, transaction} <- result, do: {:ok, transaction}
     end
+  end
+
+  defp pix(params) do
+    params
+    |> Map.put("type", "pix")
+    |> Map.put("status", "open")
+    |> create()
+  end
+
+  defp ted(params) do
+    params
+    |> Map.put("type", "ted")
+    |> Map.put("status", "open")
+    |> create()
   end
 end
