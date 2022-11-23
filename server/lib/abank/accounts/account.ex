@@ -41,4 +41,13 @@ defmodule Abank.Accounts.Account do
 
     {:ok, query}
   end
+
+  def get_account_by_number(number) do
+    query =
+      from account in __MODULE__,
+        where: [number: ^number],
+        select: account
+
+    {:ok, query}
+  end
 end

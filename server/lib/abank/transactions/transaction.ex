@@ -1,6 +1,7 @@
 defmodule Abank.Transactions.Transaction do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
 
   @fields [
     :type,
@@ -38,5 +39,13 @@ defmodule Abank.Transactions.Transaction do
     %__MODULE__{}
     |> cast(params, @fields)
     |> validate_required(@required)
+  end
+
+  def get_open_transactions do
+    query =
+      from transaction in __MODULE__,
+        where: transaction.status == "open"
+
+    {:ok, query}
   end
 end

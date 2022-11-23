@@ -1,6 +1,18 @@
 defmodule Abank.Accounts do
   alias Abank.Accounts.{Account}
 
+  def get_account_by_number(number) do
+    {:ok, query} = Account.get_account_by_number(number)
+
+    account = query |> Abank.Repo.one()
+
+    if account do
+      {:ok, account}
+    else
+      {:error, %{result: "Account not found", status: 403}}
+    end
+  end
+
   def get_account_by_user(user) do
     {:ok, query} = Account.get_account_by_user(user)
 
