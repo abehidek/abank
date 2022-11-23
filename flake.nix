@@ -8,7 +8,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
       lib = nixpkgs.lib;
       basePackages = with pkgs; [
-        elixir # elixir_1_9
+        # elixir # elixir_1_9
         nodejs-16_x
         nodePackages.pnpm
         (yarn.override { nodejs = nodejs-16_x;  })
