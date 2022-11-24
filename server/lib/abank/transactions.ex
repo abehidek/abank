@@ -25,6 +25,7 @@ defmodule Abank.Transactions do
         case type do
           "pix" -> pix(params)
           "ted" -> ted(params)
+          "debit" -> debit(params)
           _ -> {:error, %{result: "This type of transaction is not handled", status: 400}}
         end
 
@@ -35,10 +36,18 @@ defmodule Abank.Transactions do
   defp pix(params) do
     params
     |> Map.put("status", "open")
+    |> Map.delete("card_number")
     |> create()
   end
 
   defp ted(params) do
+    params
+    |> Map.put("status", "open")
+    |> Map.delete("card_number")
+    |> create()
+  end
+
+  defp debit(params) do
     params
     |> Map.put("status", "open")
     |> create()
