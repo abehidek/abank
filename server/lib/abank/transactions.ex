@@ -1,4 +1,5 @@
 defmodule Abank.Transactions do
+  alias Abank.Transactions.Scheduler
   alias Abank.Transactions.Transaction
   alias Abank.Accounts
   # alias Abank.Accounts.Account
@@ -10,7 +11,10 @@ defmodule Abank.Transactions do
     |> handle_create()
   end
 
-  defp handle_create({:ok, %Transaction{}} = result), do: result
+  defp handle_create({:ok, %Transaction{} = transaction} = _result) do
+    Scheduler.run_transaction(transaction)
+  end
+
   defp handle_create({:error, result}), do: {:error, %{result: result, status: :bad_request}}
 
   def transfer(params, user, type) do

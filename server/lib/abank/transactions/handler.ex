@@ -2,7 +2,7 @@ defmodule Abank.Transactions.Handler do
   alias Abank.Accounts
   alias Abank.Transactions.Transaction
 
-  def call() do
+  def run_all_transactions() do
     # get all transactions with "open" status
     {:ok, query} = Transaction.get_open_transactions()
 
@@ -27,37 +27,38 @@ defmodule Abank.Transactions.Handler do
     with {:ok, from_account} <- Accounts.get_account_by_number(transaction.from_account_number),
          {:ok, to_account} <- Accounts.get_account_by_number(transaction.to_account_number) do
       if Accounts.sufficient_balance?(transaction.amount_in_cents, from_account) do
-        Abank.Repo.transaction(fn ->
-          Abank.Repo.update!(
-            Ecto.Changeset.change(from_account,
-              balance_in_cents: from_account.balance_in_cents - transaction.amount_in_cents
-            )
-          )
+        with {:ok, result} <-
+               Abank.Repo.transaction(fn ->
+                 Ecto.Changeset.change(from_account,
+                   balance_in_cents: from_account.balance_in_cents - transaction.amount_in_cents
+                 )
+                 |> Abank.Repo.update!()
 
-          Abank.Repo.update!(
-            Ecto.Changeset.change(to_account,
-              balance_in_cents: to_account.balance_in_cents + transaction.amount_in_cents
-            )
-          )
+                 Ecto.Changeset.change(to_account,
+                   balance_in_cents: to_account.balance_in_cents + transaction.amount_in_cents
+                 )
+                 |> Abank.Repo.update!()
 
-          Abank.Repo.update!(
-            Ecto.Changeset.change(transaction,
-              status: "approved"
-            )
-          )
-        end)
-
-        {:ok, %{result: "Success"}}
+                 Ecto.Changeset.change(transaction,
+                   status: "approved"
+                 )
+                 |> Abank.Repo.update!()
+               end) do
+          {:ok, %{result: result}}
+        else
+          {:error, result} ->
+            IO.inspect(result)
+            {:error, %{result: "Something bad happened", status: 500}}
+        end
       else
         Abank.Repo.transaction(fn ->
-          Abank.Repo.update!(
-            Ecto.Changeset.change(transaction,
-              status: "rejected"
-            )
+          Ecto.Changeset.change(transaction,
+            status: "rejected"
           )
+          |> Abank.Repo.update!()
         end)
 
-        {:error, %{result: "Rejected because insufficient balance"}}
+        {:error, %{result: "Rejected because insufficient balance", status: 400}}
       end
     end
   end
