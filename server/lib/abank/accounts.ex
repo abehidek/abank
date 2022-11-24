@@ -34,6 +34,10 @@ defmodule Abank.Accounts do
     |> handle_create()
   end
 
+  def sufficient_balance?(decreased_value_in_cents, %Account{} = account) do
+    account.balance_in_cents >= decreased_value_in_cents
+  end
+
   defp handle_create({:ok, %Account{}} = result), do: result
   defp handle_create({:error, result}), do: {:error, %{result: result, status: :bad_request}}
 end
