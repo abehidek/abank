@@ -17,7 +17,7 @@ defmodule Abank.Transactions do
 
   defp handle_create({:error, result}), do: {:error, %{result: result, status: :bad_request}}
 
-  def transfer(params, user, type) do
+  def transfer(%{"type" => type} = params, user) do
     with {:ok, from_account} <- Accounts.get_account_by_user(user) do
       params = params |> Map.put("from_account_number", from_account.number)
 
@@ -25,6 +25,7 @@ defmodule Abank.Transactions do
         case type do
           "pix" -> pix(params)
           "ted" -> ted(params)
+          _ -> {:error, %{result: "This type of transaction is not handled", status: 400}}
         end
 
       with {:ok, transaction} <- result, do: {:ok, transaction}
@@ -33,14 +34,12 @@ defmodule Abank.Transactions do
 
   defp pix(params) do
     params
-    |> Map.put("type", "pix")
     |> Map.put("status", "open")
     |> create()
   end
 
   defp ted(params) do
     params
-    |> Map.put("type", "ted")
     |> Map.put("status", "open")
     |> create()
   end

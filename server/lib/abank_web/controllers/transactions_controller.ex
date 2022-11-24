@@ -8,7 +8,7 @@ defmodule AbankWeb.TransactionsController do
 
   def create(conn, params) do
     with {:ok, user} <- UserSession.get_session(conn),
-         {:ok, transaction} <- Transactions.transfer(params, user, "pix") do
+         {:ok, transaction} <- Transactions.transfer(params, user) do
       conn
       |> put_status(:ok)
       |> json(%{transaction: transaction})
