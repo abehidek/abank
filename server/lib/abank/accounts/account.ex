@@ -22,6 +22,10 @@ defmodule Abank.Accounts.Account do
       foreign_key: :to_account_number,
       references: :number
 
+    has_many :cards, Abank.Cards.Card,
+      foreign_key: :account_number,
+      references: :number
+
     timestamps()
   end
 
