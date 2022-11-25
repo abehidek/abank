@@ -13,13 +13,6 @@
         "sortNum": 10000
       },
       {
-        "_id": "36e2cbd1-cf70-4513-aa66-646da0a60b14",
-        "name": "Articles",
-        "containerId": "",
-        "created": "2022-11-25T14:25:54.665Z",
-        "sortNum": 20000
-      },
-      {
         "_id": "1fc3314c-01bf-4bc9-a17e-1797292d1cfa",
         "name": "Accounts",
         "containerId": "",

@@ -95,44 +95,6 @@
     "tests": []
   },
   {
-    "_id": "adc413bc-22db-4e16-a674-b42c8aa47116",
-    "colId": "b1e0d164-15a3-413f-9354-c27b929e7a75",
-    "containerId": "36e2cbd1-cf70-4513-aa66-646da0a60b14",
-    "name": "Index",
-    "url": "localhost:4000/api/articles",
-    "method": "GET",
-    "sortNum": 40000,
-    "created": "2022-11-25T14:25:54.671Z",
-    "modified": "2022-11-25T14:25:54.671Z",
-    "headers": [],
-    "params": [],
-    "tests": []
-  },
-  {
-    "_id": "339178fb-e19b-46d0-8d81-3d339d31783e",
-    "colId": "b1e0d164-15a3-413f-9354-c27b929e7a75",
-    "containerId": "36e2cbd1-cf70-4513-aa66-646da0a60b14",
-    "name": "Create",
-    "url": "localhost:4000/api/articles",
-    "method": "POST",
-    "sortNum": 50000,
-    "created": "2022-11-25T14:25:54.672Z",
-    "modified": "2022-11-25T14:25:54.672Z",
-    "headers": [
-      {
-        "name": "Content-Type",
-        "value": "application/json"
-      }
-    ],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n  \"title\": \"Nvm\",\n  \"content\": \"Nvm\",\n  \"draft\": false\n}",
-      "form": []
-    },
-    "tests": []
-  },
-  {
     "_id": "f31b8f22-9d0f-4e96-8867-b59df6dbdb03",
     "colId": "b1e0d164-15a3-413f-9354-c27b929e7a75",
     "containerId": "69b1a0a5-f5cc-41f0-a164-2bdac84c79be",

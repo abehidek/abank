@@ -8,8 +8,6 @@ defmodule AbankWeb.Router do
   scope "/api", AbankWeb do
     pipe_through :api
 
-    resources "/articles", ArticlesController, except: [:edit, :new]
-
     scope "/users" do
       get "/me", UserSessionController, :show
       post "/login", UserSessionController, :create
