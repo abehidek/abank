@@ -1,0 +1,173 @@
+[
+  {
+    "_id": "3b9f2aef-e4d6-4d92-b500-6abdc9889d10",
+    "colId": "b1e0d164-15a3-413f-9354-c27b929e7a75",
+    "containerId": "69b1a0a5-f5cc-41f0-a164-2bdac84c79be",
+    "name": "Login",
+    "url": "localhost:4000/api/users/login",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-11-25T14:25:54.665Z",
+    "modified": "2022-11-25T14:25:54.665Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"john@doe.com\",\n  \"password\": \"johndoe1234567\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "38ed733c-3f67-4cd9-a56b-ae0eab58ead8",
+    "colId": "b1e0d164-15a3-413f-9354-c27b929e7a75",
+    "containerId": "1fc3314c-01bf-4bc9-a17e-1797292d1cfa",
+    "name": "Show",
+    "url": "localhost:4000/api/test/accounts",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2022-11-25T14:25:54.667Z",
+    "modified": "2022-11-25T14:25:54.667Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "9c05524b-2101-47a7-8379-3151050336fb",
+    "colId": "b1e0d164-15a3-413f-9354-c27b929e7a75",
+    "containerId": "83e68024-1a42-4970-8e49-09265206e255",
+    "name": "Create",
+    "url": "localhost:4000/api/test/transactions",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-11-25T14:25:54.668Z",
+    "modified": "2022-11-25T14:25:54.668Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"amount_in_cents\": 800,\n  \"to_account_number\": \"50827717\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "bf7da387-bdf3-483d-9bca-09d49c19f222",
+    "colId": "b1e0d164-15a3-413f-9354-c27b929e7a75",
+    "containerId": "1fc3314c-01bf-4bc9-a17e-1797292d1cfa",
+    "name": "Create",
+    "url": "localhost:4000/api/test/accounts",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2022-11-25T14:25:54.669Z",
+    "modified": "2022-11-25T14:25:54.669Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"number\": \"80962955\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "6ee94be9-4f63-4bed-aa5e-3f728d1a152b",
+    "colId": "b1e0d164-15a3-413f-9354-c27b929e7a75",
+    "containerId": "69b1a0a5-f5cc-41f0-a164-2bdac84c79be",
+    "name": "Me",
+    "url": "localhost:4000/api/users/me",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2022-11-25T14:25:54.670Z",
+    "modified": "2022-11-25T14:25:54.670Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "adc413bc-22db-4e16-a674-b42c8aa47116",
+    "colId": "b1e0d164-15a3-413f-9354-c27b929e7a75",
+    "containerId": "36e2cbd1-cf70-4513-aa66-646da0a60b14",
+    "name": "Index",
+    "url": "localhost:4000/api/articles",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2022-11-25T14:25:54.671Z",
+    "modified": "2022-11-25T14:25:54.671Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "339178fb-e19b-46d0-8d81-3d339d31783e",
+    "colId": "b1e0d164-15a3-413f-9354-c27b929e7a75",
+    "containerId": "36e2cbd1-cf70-4513-aa66-646da0a60b14",
+    "name": "Create",
+    "url": "localhost:4000/api/articles",
+    "method": "POST",
+    "sortNum": 50000,
+    "created": "2022-11-25T14:25:54.672Z",
+    "modified": "2022-11-25T14:25:54.672Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"title\": \"Nvm\",\n  \"content\": \"Nvm\",\n  \"draft\": false\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "f31b8f22-9d0f-4e96-8867-b59df6dbdb03",
+    "colId": "b1e0d164-15a3-413f-9354-c27b929e7a75",
+    "containerId": "69b1a0a5-f5cc-41f0-a164-2bdac84c79be",
+    "name": "Logout",
+    "url": "localhost:4000/api/users/logout",
+    "method": "DELETE",
+    "sortNum": 60000,
+    "created": "2022-11-25T14:25:54.673Z",
+    "modified": "2022-11-25T14:25:54.673Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "7e217538-f26a-4008-aac1-070503690b5d",
+    "colId": "b1e0d164-15a3-413f-9354-c27b929e7a75",
+    "containerId": "69b1a0a5-f5cc-41f0-a164-2bdac84c79be",
+    "name": "Register",
+    "url": "localhost:4000/api/users/register",
+    "method": "POST",
+    "sortNum": 70000,
+    "created": "2022-11-25T14:25:54.674Z",
+    "modified": "2022-11-25T14:25:54.674Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"john@doe.com\",\n  \"password\": \"johndoe1234567\",\n  \"address\": \"St John Doe 777\",\n  \"cpf\": \"123.456.789-10\"\n}",
+      "form": []
+    },
+    "tests": []
+  }
+]

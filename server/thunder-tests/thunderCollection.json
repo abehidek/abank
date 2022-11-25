@@ -1,0 +1,38 @@
+[
+  {
+    "_id": "b1e0d164-15a3-413f-9354-c27b929e7a75",
+    "colName": "Abank API",
+    "created": "2022-11-25T14:25:54.661Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "69b1a0a5-f5cc-41f0-a164-2bdac84c79be",
+        "name": "Auth",
+        "containerId": "",
+        "created": "2022-11-25T14:25:54.664Z",
+        "sortNum": 10000
+      },
+      {
+        "_id": "36e2cbd1-cf70-4513-aa66-646da0a60b14",
+        "name": "Articles",
+        "containerId": "",
+        "created": "2022-11-25T14:25:54.665Z",
+        "sortNum": 20000
+      },
+      {
+        "_id": "1fc3314c-01bf-4bc9-a17e-1797292d1cfa",
+        "name": "Accounts",
+        "containerId": "",
+        "created": "2022-11-25T14:25:54.666Z",
+        "sortNum": 30000
+      },
+      {
+        "_id": "83e68024-1a42-4970-8e49-09265206e255",
+        "name": "Transactions",
+        "containerId": "",
+        "created": "2022-11-25T14:25:54.667Z",
+        "sortNum": 40000
+      }
+    ]
+  }
+]
