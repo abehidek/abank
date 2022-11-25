@@ -69,7 +69,7 @@ defmodule Abank.Invoices.Handler do
           {:ok, open_invoice}
         end
       else
-        {:error, %{result: "No open invoices to update"}}
+        {:ok, "No open invoices to update"}
       end
     else
       if(close_invoice.amount_in_cents > 0) do
@@ -131,7 +131,7 @@ defmodule Abank.Invoices.Handler do
       invoice.invoice_due_date
       |> Timex.shift(days: -10)
 
-    if Timex.today() > invoice_close_date do
+    if Date.diff(Timex.today(), invoice_close_date) > 0 do
       with {:ok, _} <-
              Abank.Repo.transaction(fn ->
                Ecto.Changeset.change(invoice,
@@ -150,6 +150,8 @@ defmodule Abank.Invoices.Handler do
         |> Invoices.create()
         |> IO.inspect(label: "New invoice created because previous invoice already closed")
       end
+    else
+      {:ok, "No open invoices to update"}
     end
   end
 end
