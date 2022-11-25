@@ -1,36 +1,73 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Field, Form, Formik, FormikHelpers } from 'formik'
+import { Field, Form, Formik, FormikHelpers } from "formik";
 import Base from "../layouts/Base";
 import { useRouter } from "next/router";
+import Loading from "../components/Loading";
 
 interface Values {
   email: string;
   password: string;
 }
 
-const api = "http://localhost:4000/api"
+const api = "http://localhost:4000/api";
 
 const Signup: NextPage = () => {
   const router = useRouter();
-  const signup = useMutation(["signup"], (values: Values) =>
-    fetch(api + '/users/register', {
-      method: 'POST',
-      mode: 'cors',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(values)
+  const auth = useQuery(
+    ["me"],
+    () =>
+      fetch(api + "/users/me", {
+        mode: "cors",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => res.json()),
+    {
+      enabled: true,
+      retry: false,
+      cacheTime: 0,
+      staleTime: 0,
     }
-    ).then(res => res.json()), {
+  );
+  const signup = useMutation(
+    ["signup"],
+    (values: Values) =>
+      fetch(api + "/users/register", {
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      }).then((res) => res.json()),
+    {
       onSuccess: (response) => {
-        console.log(response)
-        router.push("/login")
+        console.log(response);
+        router.push("/login");
       },
     }
-  )
+  );
+
+  async function logout() {
+    const response = await fetch(api + "/users/logout", {
+      method: "DELETE",
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => res.json());
+
+    auth.refetch();
+
+    console.log(response);
+  }
+
+  if (auth.isLoading) return <Loading />;
 
   return (
     <>
@@ -41,27 +78,43 @@ const Signup: NextPage = () => {
       </Head>
 
       <Base>
-        <h1 className="font-bold text-2xl">Sign Up</h1>
-        <Formik
-          initialValues={{ email: '', password: '' }}
-          onSubmit={(
-            values: Values,
-            { setSubmitting }: FormikHelpers<Values>
-          ) => {
-            setTimeout(() => {
-              signup.mutate(values)
-              setSubmitting(false)
-            }, 500)
-          }}
-        >
-          <Form className="flex items-center flex-col gap-4 p-5">
-            <label className="font-bold text-xl" htmlFor="email">Email</label>
-            <Field type="email" id="email" name="email" placeholder="john@doe.com" />
-            <label className="font-bold text-xl" htmlFor="password">Password</label>
-            <Field id="password" name="password" placeholder="******" />
-            <button type="submit">Submit</button>
-          </Form>
-        </Formik>
+        <h1 className="text-2xl font-bold">Sign Up</h1>
+        {auth.data.user ? (
+          <button onClick={logout}>Logout</button>
+        ) : (
+          <>
+            <Formik
+              initialValues={{ email: "", password: "" }}
+              onSubmit={(
+                values: Values,
+                { setSubmitting }: FormikHelpers<Values>
+              ) => {
+                setTimeout(() => {
+                  signup.mutate(values);
+                  setSubmitting(false);
+                }, 500);
+              }}
+            >
+              <Form className="flex flex-col items-center gap-4 p-5">
+                <label className="text-xl font-bold" htmlFor="email">
+                  Email
+                </label>
+                <Field
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="john@doe.com"
+                />
+                <label className="text-xl font-bold" htmlFor="password">
+                  Password
+                </label>
+                <Field id="password" name="password" placeholder="******" />
+                <button type="submit">Submit</button>
+              </Form>
+            </Formik>
+            {JSON.stringify(auth.data, null, 2)}
+          </>
+        )}
       </Base>
     </>
   );

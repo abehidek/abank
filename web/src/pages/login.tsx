@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Field, Form, Formik, FormikHelpers } from 'formik'
 import Base from "../layouts/Base";
 import { useRouter } from "next/router";
+import Loading from "../components/Loading";
 
 interface Values {
   email: string;
@@ -22,7 +23,7 @@ const Login: NextPage = () => {
         'Content-Type': 'application/json'
       },
     }).then(res => res.json()), {
-    enabled: false,
+    enabled: true,
     retry: false,
     cacheTime: 0,
     staleTime: 0,
@@ -66,6 +67,8 @@ const Login: NextPage = () => {
 
     console.log(response)
   }
+
+  if (auth.isLoading) return <Loading />
 
 
   return (
