@@ -32,8 +32,6 @@ defmodule Abank.Transactions.Scheduler do
   @impl true
   def handle_call({:run_one, transaction}, _from, state) do
     result = Handler.run_transaction(transaction)
-
-    schedule_transactions_routine()
     {:reply, result, state}
   end
 

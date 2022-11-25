@@ -1,7 +1,7 @@
 defmodule Abank.Invoices.Handler do
   alias Abank.Invoices
   alias Abank.Invoices.Invoice
-  alias Abank.Cards
+  # alias Abank.Cards
   alias Abank.Cards.Card
 
   use Timex
@@ -15,29 +15,22 @@ defmodule Abank.Invoices.Handler do
 
     if credit_cards do
       credit_cards
-      |> Enum.each(fn credit_card ->
-        credit_card
-        |> verify_invoice_payment()
-      end)
+      |> Enum.each(fn credit_card -> credit_card |> verify_credit_card_invoices_payment end)
     end
   end
 
-  defp verify_invoice_payment(credit_card) do
+  def verify_credit_card_invoices_payment(%Card{} = credit_card) do
     {:ok, query} = Invoice.get_close_invoices_by_credit_card(credit_card)
 
     close_invoices =
       query
       |> Abank.Repo.all()
-      |> IO.inspect()
 
     close_invoices
-    |> Enum.each(fn close_invoice ->
-      close_invoice
-      |> verify_payment()
-    end)
+    |> Enum.each(fn close_invoice -> close_invoice |> verify_close_invoice_payment() end)
   end
 
-  defp verify_payment(%Invoice{} = close_invoice) do
+  defp verify_close_invoice_payment(%Invoice{} = close_invoice) do
     if close_invoice.amount_in_cents > 0 and
          Date.diff(Timex.today(), close_invoice.invoice_due_date) > 0 do
       {:ok, query} = Invoice.get_open_invoice()
@@ -93,21 +86,22 @@ defmodule Abank.Invoices.Handler do
 
     if credit_cards do
       credit_cards
-      |> Enum.each(fn credit_card ->
-        credit_card
-        |> create_invoice_if_not_exists()
-        |> verify_invoice_status()
-      end)
+      |> Enum.each(fn credit_card -> credit_card |> verify_credit_card_invoices_status() end)
     end
   end
 
-  defp create_invoice_if_not_exists(credit_card) do
+  def verify_credit_card_invoices_status(%Card{} = credit_card) do
+    credit_card
+    |> create_open_invoice_if_not_exists()
+    |> verify_open_invoice_status()
+  end
+
+  defp create_open_invoice_if_not_exists(credit_card) do
     {:ok, query} = Invoice.get_open_invoice_by_credit_card(credit_card)
 
     open_invoice =
       query
       |> Abank.Repo.one()
-      |> IO.inspect()
 
     if open_invoice do
       {:ok, open_invoice}
@@ -126,7 +120,7 @@ defmodule Abank.Invoices.Handler do
     end
   end
 
-  defp verify_invoice_status({:ok, %Invoice{} = invoice}) do
+  defp verify_open_invoice_status({:ok, %Invoice{} = invoice}) do
     invoice_close_date =
       invoice.invoice_due_date
       |> Timex.shift(days: -10)
