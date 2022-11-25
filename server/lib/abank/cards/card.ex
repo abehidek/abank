@@ -1,6 +1,7 @@
 defmodule Abank.Cards.Card do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
 
   @fields [
     :type,
@@ -31,6 +32,10 @@ defmodule Abank.Cards.Card do
       type: :string,
       references: :number
 
+    has_many :invoices, Abank.Invoices.Invoice,
+      foreign_key: :card_number,
+      references: :card_number
+
     timestamps(updated_at: false)
   end
 
@@ -47,5 +52,13 @@ defmodule Abank.Cards.Card do
 
   def validate_credit_card(changeset) do
     IO.inspect(changeset)
+  end
+
+  def get_credit_cards do
+    query =
+      from card in __MODULE__,
+        where: card.type == "credit"
+
+    {:ok, query}
   end
 end
