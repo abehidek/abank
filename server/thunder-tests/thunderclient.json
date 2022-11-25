@@ -169,5 +169,43 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "13277b77-e204-43ee-80a1-a939e76a059a",
+    "colId": "b1e0d164-15a3-413f-9354-c27b929e7a75",
+    "containerId": "049ced8e-7e4d-4ac5-aec7-45eebd745ab9",
+    "name": "Create Debit Card",
+    "url": "localhost:4000/api/test/cards",
+    "method": "POST",
+    "sortNum": 80000,
+    "created": "2022-11-25T14:50:53.161Z",
+    "modified": "2022-11-25T15:02:28.072Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"type\": \"debit\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "4a36f57c-cce7-4960-82e8-64613b82f1f0",
+    "colId": "b1e0d164-15a3-413f-9354-c27b929e7a75",
+    "containerId": "049ced8e-7e4d-4ac5-aec7-45eebd745ab9",
+    "name": "Create Credit Card",
+    "url": "localhost:4000/api/test/cards",
+    "method": "POST",
+    "sortNum": 90000,
+    "created": "2022-11-25T15:03:13.116Z",
+    "modified": "2022-11-25T15:03:30.585Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"type\": \"credit\"\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]
