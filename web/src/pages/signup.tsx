@@ -89,9 +89,10 @@ const Signup: NextPage = () => {
               initialValues={{ email: "", password: "", address: "", cpf: "" }}
               onSubmit={(
                 values: Values,
-                { setSubmitting }: FormikHelpers<Values>
+                { setSubmitting, resetForm }: FormikHelpers<Values>
               ) => {
                 setTimeout(() => {
+                  resetForm();
                   signup.mutate(values);
                   setSubmitting(false);
                 }, 500);
