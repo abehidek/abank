@@ -9,6 +9,8 @@ import Loading from "../components/Loading";
 interface Values {
   email: string;
   password: string;
+  address: string;
+  cpf: string;
 }
 
 const api = "http://localhost:4000/api";
@@ -84,7 +86,7 @@ const Signup: NextPage = () => {
         ) : (
           <>
             <Formik
-              initialValues={{ email: "", password: "" }}
+              initialValues={{ email: "", password: "", address: "", cpf: "" }}
               onSubmit={(
                 values: Values,
                 { setSubmitting }: FormikHelpers<Values>
@@ -109,6 +111,20 @@ const Signup: NextPage = () => {
                   Password
                 </label>
                 <Field id="password" name="password" placeholder="******" />
+
+                <label className="text-xl font-bold" htmlFor="address">
+                  Address
+                </label>
+                <Field
+                  id="address"
+                  name="address"
+                  placeholder="St John Doe 777"
+                />
+
+                <label className="text-xl font-bold" htmlFor="cpf">
+                  cpf
+                </label>
+                <Field id="cpf" name="cpf" placeholder="123.456.789-10" />
                 <button type="submit">Submit</button>
               </Form>
             </Formik>
