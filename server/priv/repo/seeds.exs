@@ -12,14 +12,17 @@
 
 # Creating users
 
+alias Abank.Cards
 alias Abank.Auth
 alias Abank.Accounts
 
 alias Abank.Auth.User
 alias Abank.Accounts.Account
+alias Abank.Cards.Card
 
 Abank.Repo.delete_all(User)
 Abank.Repo.delete_all(Account)
+Abank.Repo.delete_all(Card)
 
 {:ok, %User{} = john_doe_user} =
   %{
@@ -50,3 +53,21 @@ Abank.Repo.delete_all(Account)
   %{"number" => "58232255"}
   |> Map.put("user_id", abe_hidek_user.id)
   |> Accounts.create()
+
+# Creating a debit and credit card for each user
+
+{:ok, %Card{}} =
+  %{"type" => "debit"}
+  |> Cards.new(john_doe_user)
+
+{:ok, %Card{}} =
+  %{"type" => "credit"}
+  |> Cards.new(john_doe_user)
+
+{:ok, %Card{}} =
+  %{"type" => "debit"}
+  |> Cards.new(abe_hidek_user)
+
+{:ok, %Card{}} =
+  %{"type" => "credit"}
+  |> Cards.new(abe_hidek_user)
