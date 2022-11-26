@@ -15,7 +15,9 @@ defmodule Abank.Transactions.Transaction do
     :card_number
   ]
 
-  @required Enum.reject(@fields, fn x -> x == :description or x == :card_number end)
+  @required Enum.reject(@fields, fn x ->
+              x == :description or x == :card_number or x == :to_account_number
+            end)
 
   @derive {Jason.Encoder, only: @fields ++ [:id]}
 
@@ -44,6 +46,16 @@ defmodule Abank.Transactions.Transaction do
   end
 
   def changeset(params) do
+    %__MODULE__{}
+    |> cast(params, @fields)
+    |> validate_required(@required ++ [:to_account_number])
+    |> foreign_key_constraint(:from_account_number)
+    |> foreign_key_constraint(:to_account_number)
+    |> validate_card?(params)
+  end
+
+  # exist to allow to_account_number nil transactions (go to bank, not to someone)
+  def to_bank_transaction_changeset(params) do
     %__MODULE__{}
     |> cast(params, @fields)
     |> validate_required(@required)
