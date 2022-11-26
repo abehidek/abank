@@ -6,13 +6,6 @@ defmodule Abank.Loans do
     params
     |> Map.put("status", "open")
     |> Map.delete("loan_due_date")
-    # |> Map.put( Loan due date should be put when loan is accepted
-    #   "loan_due_date",
-    #   Timex.today()
-    #   |> Timex.shift(years: 1)
-    #   |> Timex.shift(months: Enum.random(-3..6))
-    #   |> Timex.shift(days: Enum.random(-30..30))
-    # )
     |> Loan.changeset()
     |> Abank.Repo.insert()
     |> handle_create()
@@ -28,4 +21,16 @@ defmodule Abank.Loans do
 
   defp handle_create({:ok, %Loan{}} = result), do: result
   defp handle_create({:error, result}), do: {:error, %{result: result, status: :bad_request}}
+
+  def get_all_open_loans do
+    {:ok, query} = Loan.get_all_open_loans_query()
+
+    open_loans = query |> Abank.Repo.all()
+
+    if open_loans do
+      {:ok, open_loans}
+    else
+      {:error, %{result: "No open loans found", status: 404}}
+    end
+  end
 end

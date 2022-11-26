@@ -217,12 +217,12 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-11-26T16:02:26.756Z",
-    "modified": "2022-11-26T16:04:11.763Z",
+    "modified": "2022-11-26T16:28:40.777Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"amount_in_cents\": 10000\n}",
+      "raw": "{\n  \"amount_in_cents\": 1000\n}",
       "form": []
     },
     "tests": []

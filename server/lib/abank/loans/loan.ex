@@ -1,7 +1,7 @@
 defmodule Abank.Loans.Loan do
   use Ecto.Schema
   import Ecto.Changeset
-  # import Ecto.Query
+  import Ecto.Query
 
   @fields [
     :amount_in_cents,
@@ -32,5 +32,13 @@ defmodule Abank.Loans.Loan do
     |> cast(params, @fields)
     |> validate_required(@required)
     |> foreign_key_constraint(:account_number)
+  end
+
+  def get_all_open_loans_query do
+    query =
+      from loan in __MODULE__,
+        where: loan.status == "open"
+
+    {:ok, query}
   end
 end
