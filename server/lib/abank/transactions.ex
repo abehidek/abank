@@ -34,6 +34,10 @@ defmodule Abank.Transactions do
     end
   end
 
+  def transfer(_, _) do
+    {:error, %{result: "You need to pass the transaction type", status: 400}}
+  end
+
   defp pix(params) do
     params
     |> Map.put("status", "open")

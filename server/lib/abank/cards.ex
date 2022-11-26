@@ -50,4 +50,14 @@ defmodule Abank.Cards do
   defp debit(params) do
     params
   end
+
+  def get_card_by_number(number) do
+    {:ok, query} = Card.get_card_by_number_query(number)
+
+    card =
+      query
+      |> Abank.Repo.one()
+
+    {:ok, card}
+  end
 end

@@ -50,6 +50,14 @@ defmodule Abank.Cards.Card do
     |> validate_credit_card()
   end
 
+  def get_card_by_number_query(number) do
+    query =
+      from card in __MODULE__,
+        where: card.card_number == ^number
+
+    {:ok, query}
+  end
+
   def validate_credit_card(changeset) do
     IO.inspect(changeset)
   end
