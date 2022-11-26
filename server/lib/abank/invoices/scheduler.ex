@@ -52,8 +52,8 @@ defmodule Abank.Invoices.Scheduler do
       self(),
       :verify_all_invoices,
       # 1 hour
-      1000 * 60 * 60
-      # 1000 * 30
+      # 1000 * 60 * 60
+      1000 * 10
       # * 6 # 6 hours total
     )
   end

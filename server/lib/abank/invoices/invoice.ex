@@ -37,7 +37,7 @@ defmodule Abank.Invoices.Invoice do
     |> foreign_key_constraint(:card_number)
   end
 
-  def get_open_invoice do
+  def get_open_invoice_query do
     query =
       from invoice in __MODULE__,
         where: invoice.status == "open"
@@ -45,7 +45,7 @@ defmodule Abank.Invoices.Invoice do
     {:ok, query}
   end
 
-  def get_close_invoices do
+  def get_close_invoices_query do
     query =
       from invoice in __MODULE__,
         where: invoice.status == "close"
@@ -53,7 +53,7 @@ defmodule Abank.Invoices.Invoice do
     {:ok, query}
   end
 
-  def get_close_invoices_by_credit_card(%Card{type: "credit"} = card) do
+  def get_close_invoices_by_credit_card_query(%Card{type: "credit"} = card) do
     query =
       from invoice in __MODULE__,
         where: invoice.card_number == ^card.card_number and invoice.status == "close"
@@ -61,7 +61,7 @@ defmodule Abank.Invoices.Invoice do
     {:ok, query}
   end
 
-  def get_open_invoice_by_credit_card(%Card{type: "credit"} = card) do
+  def get_open_invoice_by_credit_card_query(%Card{type: "credit"} = card) do
     query =
       from invoice in __MODULE__,
         where: invoice.card_number == ^card.card_number and invoice.status == "open"

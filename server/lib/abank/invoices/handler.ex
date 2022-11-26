@@ -20,7 +20,7 @@ defmodule Abank.Invoices.Handler do
   end
 
   def verify_credit_card_invoices_payment(%Card{} = credit_card) do
-    {:ok, query} = Invoice.get_close_invoices_by_credit_card(credit_card)
+    {:ok, query} = Invoice.get_close_invoices_by_credit_card_query(credit_card)
 
     close_invoices =
       query
@@ -33,7 +33,7 @@ defmodule Abank.Invoices.Handler do
   defp verify_close_invoice_payment(%Invoice{} = close_invoice) do
     if close_invoice.amount_in_cents > 0 and
          Date.diff(Timex.today(), close_invoice.invoice_due_date) > 0 do
-      {:ok, query} = Invoice.get_open_invoice()
+      {:ok, query} = Invoice.get_open_invoice_query()
 
       open_invoice =
         query
@@ -97,7 +97,7 @@ defmodule Abank.Invoices.Handler do
   end
 
   defp create_open_invoice_if_not_exists(credit_card) do
-    {:ok, query} = Invoice.get_open_invoice_by_credit_card(credit_card)
+    {:ok, query} = Invoice.get_open_invoice_by_credit_card_query(credit_card)
 
     open_invoice =
       query
