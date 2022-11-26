@@ -48,7 +48,7 @@ defmodule Abank.Cards do
   end
 
   defp debit(params) do
-    params
+    {:ok, params}
   end
 
   def get_card_by_number(number) do
@@ -58,6 +58,10 @@ defmodule Abank.Cards do
       query
       |> Abank.Repo.one()
 
+    if card do
     {:ok, card}
+    else
+      {:error, %{result: "No card with that number found", status: 404}}
+    end
   end
 end

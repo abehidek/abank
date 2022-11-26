@@ -51,6 +51,7 @@ defmodule Abank.Transactions.Transaction do
     |> validate_required(@required ++ [:to_account_number])
     |> foreign_key_constraint(:from_account_number)
     |> foreign_key_constraint(:to_account_number)
+    |> foreign_key_constraint(:card_number)
     |> validate_card?(params)
   end
 
@@ -61,23 +62,28 @@ defmodule Abank.Transactions.Transaction do
     |> validate_required(@required)
     |> foreign_key_constraint(:from_account_number)
     |> foreign_key_constraint(:to_account_number)
+    |> foreign_key_constraint(:card_number)
     |> validate_card?(params)
   end
 
   defp validate_card?(changeset, %{"type" => type}) do
     if type == "credit" or type == "debit" do
-      {:ok, card} = Cards.get_card_by_number(changeset.changes.card_number)
-
-      changeset
-      |> validate_required([:card_number])
-      |> foreign_key_constraint(:card_number)
-      |> validate_change(:type, fn :type, type ->
-        if type == card.type do
-          []
-        else
-          [type: "Mismatched types. Transaction is type #{type} but card is #{card.type}"]
-        end
-      end)
+      with {:ok, card} <- Cards.get_card_by_number(changeset.changes.card_number) do
+        changeset
+        |> validate_change(:type, fn :type, type ->
+          if type == card.type do
+            []
+          else
+            [type: "Mismatched types. Transaction is type #{type} but card is #{card.type}"]
+          end
+        end)
+      else
+        {:error, %{result: _result, status: _status}} ->
+          changeset
+          |> validate_change(:type, fn :type, type ->
+            [type: "Card type #{type} not found"]
+          end)
+      end
     else
       changeset
     end

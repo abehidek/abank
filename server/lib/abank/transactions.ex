@@ -45,19 +45,6 @@ defmodule Abank.Transactions do
     {:error, %{result: "You need to pass the transaction type", status: 400}}
   end
 
-  def transfer(%{"type" => type, "from_account_number" => _} = params) do
-    result =
-      case type do
-        "pix" -> pix(params)
-        "ted" -> ted(params)
-        "debit" -> debit(params)
-        "credit" -> credit(params)
-        _ -> {:error, %{result: "This type of transaction is not handled", status: 400}}
-      end
-
-    with {:ok, transaction} <- result, do: {:ok, transaction}
-  end
-
   defp pix(params) do
     params
     |> Map.put("status", "open")
