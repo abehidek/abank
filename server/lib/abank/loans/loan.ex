@@ -38,6 +38,7 @@ defmodule Abank.Loans.Loan do
     |> cast(params, @fields)
     |> validate_required(@required)
     |> foreign_key_constraint(:account_number)
+    |> unique_constraint(:account_number)
 
     # validate one loan per status: "approved", "open" or "late"
   end
