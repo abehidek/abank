@@ -34,5 +34,12 @@
         "sortNum": 50000
       }
     ]
+  },
+  {
+    "_id": "76f9873c-be36-4682-ab8c-7b6733b5fc1f",
+    "colName": "Loans",
+    "created": "2022-11-26T16:02:19.531Z",
+    "sortNum": 20000,
+    "folders": []
   }
 ]

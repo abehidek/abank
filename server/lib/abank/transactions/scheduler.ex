@@ -39,8 +39,8 @@ defmodule Abank.Transactions.Scheduler do
     Process.send_after(
       self(),
       :run_all,
-      # 1000 * 60 * 60
-      1000 * 10
+      1000 * 60 * 60
+      # 1000 * 10
     )
   end
 end

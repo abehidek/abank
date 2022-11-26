@@ -207,5 +207,24 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "1cb894c0-4bfe-40bf-b492-6d34867f612e",
+    "colId": "76f9873c-be36-4682-ab8c-7b6733b5fc1f",
+    "containerId": "",
+    "name": "Create",
+    "url": "localhost:4000/api/test/loans",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-11-26T16:02:26.756Z",
+    "modified": "2022-11-26T16:04:11.763Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"amount_in_cents\": 10000\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]

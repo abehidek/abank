@@ -22,6 +22,8 @@ defmodule AbankWeb.Router do
       post "/transactions", TransactionsController, :create
 
       post "/cards", CardsController, :create
+
+      post "/loans", LoansController, :create
     end
   end
 
