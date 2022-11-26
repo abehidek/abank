@@ -17,12 +17,21 @@ alias Abank.Auth
 alias Abank.Accounts
 
 alias Abank.Auth.User
+alias Abank.Auth.UserSession
 alias Abank.Accounts.Account
 alias Abank.Cards.Card
+alias Abank.Invoices.Invoice
+alias Abank.Loans.Loan
+alias Abank.Transactions.Transaction
 
 Abank.Repo.delete_all(User)
 Abank.Repo.delete_all(Account)
 Abank.Repo.delete_all(Card)
+
+Abank.Repo.delete_all(UserSession)
+Abank.Repo.delete_all(Invoice)
+Abank.Repo.delete_all(Loan)
+Abank.Repo.delete_all(Transaction)
 
 {:ok, %User{} = john_doe_user} =
   %{
@@ -45,12 +54,12 @@ Abank.Repo.delete_all(Card)
 # Creating accounts for each user
 
 {:ok, %Account{} = john_doe_account} =
-  %{"number" => "80962955"}
+  %{}
   |> Map.put("user_id", john_doe_user.id)
   |> Accounts.create()
 
 {:ok, %Account{} = abe_hidek_account} =
-  %{"number" => "58232255"}
+  %{}
   |> Map.put("user_id", abe_hidek_user.id)
   |> Accounts.create()
 

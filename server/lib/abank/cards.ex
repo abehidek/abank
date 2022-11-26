@@ -2,11 +2,19 @@ defmodule Abank.Cards do
   alias Abank.Cards.Card
   alias Abank.Accounts
 
-  def create(params) do
+  def create({:ok, params}) do
     params
     |> Card.changeset()
     |> Abank.Repo.insert()
     |> handle_create()
+  end
+
+  def create({:error, %{result: result, status: status}}) do
+    {:error, %{result: result, status: status}}
+  end
+
+  def create(_) do
+    {:error, %{result: "Something bad happened", status: 500}}
   end
 
   defp handle_create({:ok, %Card{}} = result), do: result
@@ -34,17 +42,34 @@ defmodule Abank.Cards do
         })
 
       case type do
-        "credit" -> params |> credit() |> create()
-        "debit" -> params |> debit() |> create()
-        _ -> {:error, %{result: "This type of card does not exist", status: 400}}
+        "credit" ->
+          params
+          |> Map.put_new("limit_in_cents", account.max_limit)
+          |> credit(account)
+          |> create()
+
+        "debit" ->
+          params |> debit() |> create()
+
+        _ ->
+          {:error, %{result: "This type of card does not exist", status: 400}}
       end
     end
   end
 
-  defp credit(params) do
-    params
-    |> Map.put("limit_in_cents", 500)
-    |> Map.put("invoice_due_day", 1)
+  defp credit(%{"limit_in_cents" => limit_in_cents} = params, account) do
+    if limit_in_cents <= account.max_limit do
+      {:ok,
+       params
+       |> Map.put("invoice_due_day", 1)}
+    else
+      {:error,
+       %{
+         result:
+           "Your card surpasses your account max_limit which is #{account.max_limit}, improve your credit score.",
+         status: 400
+       }}
+    end
   end
 
   defp debit(params) do
@@ -59,7 +84,7 @@ defmodule Abank.Cards do
       |> Abank.Repo.one()
 
     if card do
-    {:ok, card}
+      {:ok, card}
     else
       {:error, %{result: "No card with that number found", status: 404}}
     end

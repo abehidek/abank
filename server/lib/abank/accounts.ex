@@ -33,6 +33,10 @@ defmodule Abank.Accounts do
 
   def create(params) do
     params
+    |> Map.delete("max_limit")
+    |> Map.delete("score")
+    |> Map.delete("balance_in_cents")
+    |> Map.put("number", Integer.to_string(Enum.random(10_000_000..99_999_999)))
     |> Account.changeset()
     |> Abank.Repo.insert()
     |> handle_create()

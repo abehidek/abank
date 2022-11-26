@@ -3,7 +3,7 @@ defmodule Abank.Accounts.Account do
   import Ecto.Changeset
   import Ecto.Query
 
-  @fields [:number, :balance_in_cents, :score, :user_id]
+  @fields [:number, :balance_in_cents, :score, :user_id, :max_limit]
 
   @derive {Jason.Encoder, only: @fields ++ [:id]}
 
@@ -11,6 +11,7 @@ defmodule Abank.Accounts.Account do
     field :number, :string
     field :balance_in_cents, :integer, default: 0
     field :score, :integer, default: 50
+    field :max_limit, :integer, default: 300
 
     belongs_to :user, Abank.Auth.User, foreign_key: :user_id, references: :id
 
