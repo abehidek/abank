@@ -4,13 +4,15 @@ import CreateAccount from "../components/CreateAccount";
 import Loading from "../components/Loading";
 
 const Home: NextPage = () => {
-  const { data, isUserError, isUserLoading } = useAuth();
+  const { data, user, account, isUserError, isUserLoading } = useAuth();
 
   if (isUserLoading) return <Loading />;
 
   if (isUserError) return <p>Error...</p>;
 
-  if (data?.user && !data?.user.has_account) return <CreateAccount />;
+  if (!user) return <p>Sign In pls</p>;
+
+  if (!account) return <CreateAccount />;
 
   return (
     <div>

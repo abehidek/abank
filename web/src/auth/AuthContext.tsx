@@ -2,10 +2,7 @@ import { createContext } from "react";
 import type { ReactNode } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-import type {
-  UseMutationOptions,
-  UseMutateFunction,
-} from "@tanstack/react-query";
+import type { UseMutateFunction } from "@tanstack/react-query";
 
 export interface AuthProps {
   account?: Account;
@@ -31,6 +28,8 @@ export interface User {
 
 export type AuthContextDataProps = {
   data: AuthProps | undefined;
+  user: User | undefined;
+  account: Account | undefined;
   isUserLoading: boolean;
   isUserError: boolean;
   signIn: UseMutateFunction<any, unknown, SignInValues, unknown>;
@@ -71,6 +70,9 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   } = useQuery(["user"], () =>
     fetch(api + "/users/me", requestInit).then((res) => res.json())
   );
+
+  const user = data && "user" in data ? data.user : undefined;
+  const account = data && "account" in data ? data.account : undefined;
 
   const { mutate: signIn } = useMutation(
     ["signIn"],
@@ -132,6 +134,8 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
     <AuthContext.Provider
       value={{
         data,
+        user,
+        account,
         isUserError,
         isUserLoading,
         signIn,
