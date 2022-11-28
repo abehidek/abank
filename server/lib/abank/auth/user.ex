@@ -3,7 +3,7 @@ defmodule Abank.Auth.User do
   import Ecto.Changeset
 
   @table_fields [:email, :hashed_password, :confirmed_at]
-  @virtual_fields [:password]
+  @virtual_fields [:password, :has_account]
 
   @derive {Jason.Encoder, only: @table_fields ++ @virtual_fields}
 
@@ -20,6 +20,7 @@ defmodule Abank.Auth.User do
     timestamps()
 
     field :password, :string, virtual: true, redact: false
+    field :has_account, :string, virtual: true, redact: false
   end
 
   def registration_changeset(params, opts \\ []) do

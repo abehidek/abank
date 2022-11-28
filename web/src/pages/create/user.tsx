@@ -1,10 +1,11 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Field, Form, Formik, FormikHelpers } from "formik";
-import Base from "../layouts/Base";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { Field, Form, Formik } from "formik";
+import type { FormikHelpers } from "formik";
+import Base from "../../layouts/Base";
 import { useRouter } from "next/router";
-import Loading from "../components/Loading";
+import Loading from "../../components/Loading";
 
 interface Values {
   email: string;

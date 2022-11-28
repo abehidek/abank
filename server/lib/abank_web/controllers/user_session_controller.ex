@@ -1,5 +1,6 @@
 defmodule AbankWeb.UserSessionController do
   alias Abank.Auth
+  alias Abank.Accounts
   use AbankWeb, :controller
 
   action_fallback AbankWeb.FallbackController
@@ -29,9 +30,19 @@ defmodule AbankWeb.UserSessionController do
 
   defp login_response(conn, {:ok, token}) do
     with {:ok, user} <- Auth.get_user_by_session_token(token) do
-      conn
-      |> put_status(:ok)
-      |> render("show.json", user: user)
+      case Accounts.get_account_by_user(user) do
+        {:ok, account} ->
+          conn
+          |> put_status(:ok)
+          # |> render("show.json", user: user)
+          |> json(%{
+            user: user |> Map.put(:has_account, true),
+            account: account
+          })
+
+        _ ->
+          conn |> json(%{user: user |> Map.put(:has_account, false) |> IO.inspect()})
+      end
     end
   end
 
