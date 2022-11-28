@@ -1,3 +1,7 @@
+import { useAuth } from "../auth/useAuth";
+
 export default function CreateAccount() {
-  return <p>No account, create it?</p>;
+  const { createAccount } = useAuth();
+
+  return <button onClick={createAccount}>No account, create it?</button>;
 }

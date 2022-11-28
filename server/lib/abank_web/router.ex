@@ -15,14 +15,14 @@ defmodule AbankWeb.Router do
       delete "/logout", UserSessionController, :delete
     end
 
+    scope "/accounts" do
+      get "/", AccountsController, :show
+      post "/", AccountsController, :create
+    end
+
     scope "/test" do
-      get "/accounts", AccountsController, :show
-      post "/accounts", AccountsController, :create
-
       post "/transactions", TransactionsController, :create
-
       post "/cards", CardsController, :create
-
       post "/loans", LoansController, :create
     end
   end

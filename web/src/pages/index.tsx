@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useAuth } from "../auth/useAuth";
+import CreateAccount from "../components/CreateAccount";
 import Loading from "../components/Loading";
 
 const Home: NextPage = () => {
@@ -9,8 +10,7 @@ const Home: NextPage = () => {
 
   if (isUserError) return <p>Error...</p>;
 
-  if (data?.user && !data?.user.has_account)
-    return <div>You do not have a account</div>;
+  if (data?.user && !data?.user.has_account) return <CreateAccount />;
 
   return (
     <div>

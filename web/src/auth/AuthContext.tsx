@@ -36,6 +36,7 @@ export type AuthContextDataProps = {
   signIn: UseMutateFunction<any, unknown, SignInValues, unknown>;
   signUp: UseMutateFunction<any, unknown, SignUpValues, unknown>;
   signOut: () => Promise<void>;
+  createAccount: () => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextDataProps>(
@@ -52,8 +53,9 @@ export type SignUpValues = {
   password: string;
 };
 
+export const api = process.env.API_URL || "http://localhost:4000/api";
+
 export function AuthContextProvider({ children }: { children: ReactNode }) {
-  const api = process.env.API_URL || "http://localhost:4000/api";
   const requestInit: RequestInit = {
     mode: "cors",
     credentials: "include",
@@ -113,6 +115,19 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
     userRefetch();
   };
 
+  const createAccount = async () => {
+    await fetch(api + "/accounts", {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => res.json());
+
+    userRefetch();
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -122,6 +137,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
         signIn,
         signUp,
         signOut,
+        createAccount,
       }}
     >
       {children}
