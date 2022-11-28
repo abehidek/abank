@@ -15,7 +15,13 @@ export default function Navbar() {
       <div className="flex gap-5">
         {user ? (
           <>
-            <h3>Hello {data.user.email}</h3>
+            {account ? (
+              <h3>
+                <Link href="/cards">Cards</Link>
+              </h3>
+            ) : null}
+
+            <h3>Hello {user.email}</h3>
             <h3>
               <button onClick={signOut}>Logout</button>
             </h3>
