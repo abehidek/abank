@@ -20,9 +20,13 @@ defmodule AbankWeb.Router do
       post "/", AccountsController, :create
     end
 
+    scope "/cards" do
+      get "/", CardsController, :index
+      post "/", CardsController, :create
+    end
+
     scope "/test" do
       post "/transactions", TransactionsController, :create
-      post "/cards", CardsController, :create
       post "/loans", LoansController, :create
     end
   end

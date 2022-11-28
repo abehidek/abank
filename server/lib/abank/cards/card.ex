@@ -50,6 +50,14 @@ defmodule Abank.Cards.Card do
     |> validate_credit_card()
   end
 
+  def get_cards_by_account_number(account_number) do
+    query =
+      from card in __MODULE__,
+        where: card.account_number == ^account_number
+
+    {:ok, query}
+  end
+
   def get_card_by_number_query(number) do
     query =
       from card in __MODULE__,

@@ -20,6 +20,20 @@ defmodule Abank.Cards do
   defp handle_create({:ok, %Card{}} = result), do: result
   defp handle_create({:error, result}), do: {:error, %{result: result, status: :bad_request}}
 
+  def all(user) do
+    with {:ok, account} <- Accounts.get_account_by_user(user) do
+      {:ok, query} = Card.get_cards_by_account_number(account.number)
+
+      cards = query |> Abank.Repo.all()
+
+      if cards do
+        {:ok, cards}
+      else
+        {:error, %{result: "No card found", status: 403}}
+      end
+    end
+  end
+
   def new(%{"type" => type} = params, user) do
     with {:ok, account} <- Accounts.get_account_by_user(user) do
       expiration_year = Date.utc_today().year() + Enum.random(4..8)
