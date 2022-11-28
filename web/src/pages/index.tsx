@@ -1,6 +1,8 @@
 import type { NextPage } from "next";
 import { useAuth } from "../auth/useAuth";
+import Card from "../components/Card";
 import CreateAccount from "../components/CreateAccount";
+import Currency from "../components/Currency";
 import Loading from "../components/Loading";
 
 const Home: NextPage = () => {
@@ -16,8 +18,13 @@ const Home: NextPage = () => {
 
   return (
     <div>
-      <p>Index</p>
-      {JSON.stringify(data, null, 2)}
+      {/* {JSON.stringify(data, null, 2)} */}
+
+      <h1>Olá {user.email}</h1>
+      <h2>Sua conta: {account.number}</h2>
+      <h2>
+        Saldo: <Currency amountInCents={account.balance_in_cents} />
+      </h2>
     </div>
   );
 };

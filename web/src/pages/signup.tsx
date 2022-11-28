@@ -15,11 +15,11 @@ interface Values {
 
 const Signup: NextPage = () => {
   const router = useRouter();
-  const { data, isUserLoading, signUp } = useAuth();
+  const { user, isUserLoading, signUp } = useAuth();
 
   if (isUserLoading) return <Loading />;
 
-  if (data?.user) {
+  if (user) {
     router.push("/");
   }
 

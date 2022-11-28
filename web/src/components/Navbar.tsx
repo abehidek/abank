@@ -3,11 +3,9 @@ import { useAuth } from "../auth/useAuth";
 import Loading from "./Loading";
 
 export default function Navbar() {
-  const { data, isUserError, isUserLoading, signOut } = useAuth();
+  const { user, account, isUserError, isUserLoading, signOut } = useAuth();
 
-  if (isUserLoading || !data) return <Loading />;
-
-  if (isUserError) return <p>Error...</p>;
+  if (isUserLoading) return <Loading />;
 
   return (
     <div className="flex gap-5">
@@ -15,7 +13,7 @@ export default function Navbar() {
         <Link href="/">Abank</Link>
       </h1>
       <div className="flex gap-5">
-        {"user" in data ? (
+        {user ? (
           <>
             <h3>Hello {data.user.email}</h3>
             <h3>
