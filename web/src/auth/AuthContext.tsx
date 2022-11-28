@@ -54,14 +54,15 @@ export type SignUpValues = {
 
 export const api = process.env.API_URL || "http://localhost:4000/api";
 
+export const requestInit: RequestInit = {
+  mode: "cors",
+  credentials: "include",
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
+
 export function AuthContextProvider({ children }: { children: ReactNode }) {
-  const requestInit: RequestInit = {
-    mode: "cors",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
   const {
     data,
     isError: isUserError,
