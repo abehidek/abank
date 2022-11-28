@@ -1,35 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { useAuth } from "../auth/useAuth";
 import Loading from "./Loading";
 
-const api = "http://localhost:4000/api";
-
 export default function Navbar() {
-  const auth = useQuery(["me"], () =>
-    fetch(api + "/users/me", {
-      mode: "cors",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => res.json())
-  );
-  async function logout() {
-    const response = await fetch(api + "/users/logout", {
-      method: "DELETE",
-      mode: "cors",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => res.json());
+  const { data, isUserError, isUserLoading, signOut } = useAuth();
 
-    auth.refetch();
+  if (isUserLoading || !data) return <Loading />;
 
-    console.log(response);
-  }
-
-  if (auth.isLoading) return null;
+  if (isUserError) return <p>Error...</p>;
 
   return (
     <div className="flex gap-5">
@@ -37,20 +15,20 @@ export default function Navbar() {
         <Link href="/">Abank</Link>
       </h1>
       <div className="flex gap-5">
-        {"user" in auth.data ? (
+        {"user" in data ? (
           <>
-            <h3>Hello {auth.data.user.email}</h3>
+            <h3>Hello {data.user.email}</h3>
             <h3>
-              <button onClick={logout}>Logout</button>
+              <button onClick={signOut}>Logout</button>
             </h3>
           </>
         ) : (
           <>
             <h3>
-              <Link href="/login">Login</Link>
+              <Link href="/signin">Sign In</Link>
             </h3>
             <h3>
-              <Link href="/create/user">Sign up</Link>
+              <Link href="/signup">Sign up</Link>
             </h3>
           </>
         )}
