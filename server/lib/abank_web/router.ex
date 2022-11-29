@@ -26,6 +26,7 @@ defmodule AbankWeb.Router do
     end
 
     scope "transactions" do
+      get "/", TransactionsController, :index
       post "/", TransactionsController, :create
     end
 

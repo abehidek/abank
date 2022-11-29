@@ -3,10 +3,11 @@ import CreateAccount from "../../components/CreateAccount";
 import Loading from "../../components/Loading";
 import { Field, Form, Formik } from "formik";
 import type { FormikHelpers } from "formik";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { api, requestInit } from "../../auth/AuthContext";
 import { useRouter } from "next/router";
 import AppLayout from "../../layouts/AppLayout";
+import ListTransactions from "../../components/ListTransactions";
 
 interface Values {
   amount_in_cents: string;
@@ -14,7 +15,7 @@ interface Values {
   type: "pix" | "ted" | "doc";
 }
 
-export default function Transfer() {
+export default function Transactions() {
   const { user, error, account, isUserError, isUserLoading } = useAuth();
   const router = useRouter();
 
@@ -28,15 +29,25 @@ export default function Transfer() {
       }),
     {
       onSuccess: () => {
-        router.push("/");
+        router.push("/app");
       },
     }
   );
 
-  if (isUserLoading) return <Loading />;
+  const {
+    data,
+    isError,
+    error: transactionError,
+    isLoading,
+  } = useQuery(["transactions"], () =>
+    fetch(api + "/transactions", { ...requestInit }).then((res) => res.json())
+  );
 
-  if (isUserError) {
+  if (isUserLoading || isLoading) return <Loading />;
+
+  if (isUserError || isError) {
     console.error(error);
+    console.error(transactionError);
     return <p>Error...</p>;
   }
 
@@ -46,6 +57,8 @@ export default function Transfer() {
   }
 
   if (!account) return <CreateAccount />;
+
+  console.log(data);
 
   return (
     <AppLayout>
@@ -114,6 +127,8 @@ export default function Transfer() {
           <button type="submit">Submit</button>
         </Form>
       </Formik>
+
+      <ListTransactions transactions={data.transactions} />
     </AppLayout>
   );
 }

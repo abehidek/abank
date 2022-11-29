@@ -142,7 +142,12 @@ export default function CreateCard() {
                             />
                           </div>
                           <div className="mt-4">
-                            <Button onClick={() => createCard("credit")}>
+                            <Button
+                              onClick={() => {
+                                createCard("credit");
+                                closeModal();
+                              }}
+                            >
                               Create card
                             </Button>
                           </div>

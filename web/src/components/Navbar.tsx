@@ -21,7 +21,10 @@ export default function Navbar() {
                   <Link href="/app/cards">Cards</Link>
                 </h3>
                 <h3>
-                  <Link href="/app/transfer">Transfer</Link>
+                  <Link href="/app/transactions">Transactions</Link>
+                </h3>
+                <h3>
+                  <Link href="/app/loans">Loans</Link>
                 </h3>
               </>
             ) : null}

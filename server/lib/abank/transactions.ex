@@ -4,6 +4,20 @@ defmodule Abank.Transactions do
   alias Abank.Accounts
   # alias Abank.Accounts.Account
 
+  def all(user) do
+    with {:ok, account} <- Accounts.get_account_by_user(user) do
+      {:ok, query} = Transaction.get_transactions_by_account_number(account.number)
+
+      transactions = query |> Abank.Repo.all()
+
+      if transactions do
+        {:ok, transactions}
+      else
+        {:error, %{result: "No transactions found", status: 403}}
+      end
+    end
+  end
+
   def create(params) do
     params
     |> Transaction.changeset()

@@ -96,4 +96,14 @@ defmodule Abank.Transactions.Transaction do
 
     {:ok, query}
   end
+
+  def get_transactions_by_account_number(account_number) do
+    query =
+      from transaction in __MODULE__,
+        where:
+          transaction.from_account_number == ^account_number or
+            transaction.to_account_number == ^account_number
+
+    {:ok, query}
+  end
 end
