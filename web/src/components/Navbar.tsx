@@ -3,7 +3,7 @@ import { useAuth } from "../auth/useAuth";
 import Loading from "./Loading";
 
 export default function Navbar() {
-  const { user, account, isUserError, isUserLoading, signOut } = useAuth();
+  const { user, account, isUserLoading, signOut } = useAuth();
 
   if (isUserLoading) return <Loading />;
 

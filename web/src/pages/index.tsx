@@ -20,10 +20,10 @@ const Home: NextPage = () => {
     <div>
       {/* {JSON.stringify(data, null, 2)} */}
 
-      <h1>Olá {user.email}</h1>
-      <h2>Sua conta: {account.number}</h2>
+      <h1>Hello {user.email}</h1>
+      <h2>Your account: {account.number}</h2>
       <h2>
-        Saldo: <Currency amountInCents={account.balance_in_cents} />
+        Balance: <Currency amountInCents={account.balance_in_cents} />
       </h2>
     </div>
   );

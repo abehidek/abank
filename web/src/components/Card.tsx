@@ -9,7 +9,7 @@ interface CardProps {
 
 export default function Card(props: CardProps) {
   return (
-    <div className="relative h-56 w-96 transform rounded-xl bg-red-100 text-white shadow-2xl transition-transform hover:scale-110">
+    <div className="relative max-h-56 w-96 transform rounded-xl bg-red-100 text-white shadow-2xl transition-transform hover:scale-110">
       <picture>
         <img
           className="relative h-full w-full rounded-xl object-cover"

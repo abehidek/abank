@@ -41,33 +41,37 @@ const Cards: NextPage = () => {
     <div>
       <CreateCard />
       <h2>Debit cards</h2>
-      {data.cards
-        .filter((card) => card.type == "debit")
-        .map((card) => (
-          <div key={card.id}>
-            <Card
-              name={user.email}
-              cvv={card.cvc}
-              expiry={card.expiration_date}
-              number={card.card_number}
-              type={card.type}
-            />
-          </div>
-        ))}
+      <div className="flex flex-col gap-6">
+        {data.cards
+          .filter((card) => card.type == "debit")
+          .map((card) => (
+            <div key={card.id}>
+              <Card
+                name={user.email}
+                cvv={card.cvc}
+                expiry={card.expiration_date}
+                number={card.card_number}
+                type={card.type}
+              />
+            </div>
+          ))}
+      </div>
       <h2>Credit cards</h2>
-      {data.cards
-        .filter((card) => card.type == "credit")
-        .map((card) => (
-          <div key={card.id}>
-            <Card
-              name={user.email}
-              cvv={card.cvc}
-              expiry={card.expiration_date}
-              number={card.card_number}
-              type={card.type}
-            />
-          </div>
-        ))}
+      <div className="flex flex-col gap-6">
+        {data.cards
+          .filter((card) => card.type == "credit")
+          .map((card) => (
+            <div key={card.id}>
+              <Card
+                name={user.email}
+                cvv={card.cvc}
+                expiry={card.expiration_date}
+                number={card.card_number}
+                type={card.type}
+              />
+            </div>
+          ))}
+      </div>
     </div>
   );
 };

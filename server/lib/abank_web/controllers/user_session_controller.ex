@@ -36,12 +36,12 @@ defmodule AbankWeb.UserSessionController do
           |> put_status(:ok)
           # |> render("show.json", user: user)
           |> json(%{
-            user: user |> Map.put(:has_account, true),
+            user: user,
             account: account
           })
 
         _ ->
-          conn |> json(%{user: user |> Map.put(:has_account, false) |> IO.inspect()})
+          conn |> json(%{user: user})
       end
     end
   end
