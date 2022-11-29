@@ -32,6 +32,7 @@ export type AuthContextDataProps = {
   account: Account | undefined;
   isUserLoading: boolean;
   isUserError: boolean;
+  error: any;
   signIn: UseMutateFunction<any, unknown, SignInValues, unknown>;
   signUp: UseMutateFunction<any, unknown, SignUpValues, unknown>;
   signOut: () => Promise<void>;
@@ -65,6 +66,7 @@ export const requestInit: RequestInit = {
 export function AuthContextProvider({ children }: { children: ReactNode }) {
   const {
     data,
+    error,
     isError: isUserError,
     isLoading: isUserLoading,
     refetch: userRefetch,
@@ -138,6 +140,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
         user,
         account,
         isUserError,
+        error,
         isUserLoading,
         signIn,
         signUp,

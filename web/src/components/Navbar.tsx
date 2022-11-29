@@ -10,7 +10,7 @@ export default function Navbar() {
   return (
     <div className="flex gap-5">
       <h1>
-        <Link href="/">Abank</Link>
+        <Link href="/app">Home</Link>
       </h1>
       <div className="flex gap-5">
         {user ? (
@@ -18,10 +18,10 @@ export default function Navbar() {
             {account ? (
               <>
                 <h3>
-                  <Link href="/cards">Cards</Link>
+                  <Link href="/app/cards">Cards</Link>
                 </h3>
                 <h3>
-                  <Link href="/transfer">Transfer</Link>
+                  <Link href="/app/transfer">Transfer</Link>
                 </h3>
               </>
             ) : null}
@@ -31,16 +31,7 @@ export default function Navbar() {
               <button onClick={signOut}>Logout</button>
             </h3>
           </>
-        ) : (
-          <>
-            <h3>
-              <Link href="/signin">Sign In</Link>
-            </h3>
-            <h3>
-              <Link href="/signup">Sign up</Link>
-            </h3>
-          </>
-        )}
+        ) : null}
       </div>
     </div>
   );

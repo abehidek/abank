@@ -1,11 +1,12 @@
-import { useAuth } from "../auth/useAuth";
-import CreateAccount from "../components/CreateAccount";
-import Loading from "../components/Loading";
+import { useAuth } from "../../auth/useAuth";
+import CreateAccount from "../../components/CreateAccount";
+import Loading from "../../components/Loading";
 import { Field, Form, Formik } from "formik";
 import type { FormikHelpers } from "formik";
 import { useMutation } from "@tanstack/react-query";
-import { api, requestInit } from "../auth/AuthContext";
+import { api, requestInit } from "../../auth/AuthContext";
 import { useRouter } from "next/router";
+import AppLayout from "../../layouts/AppLayout";
 
 interface Values {
   amount_in_cents: string;
@@ -14,7 +15,7 @@ interface Values {
 }
 
 export default function Transfer() {
-  const { user, account, isUserError, isUserLoading } = useAuth();
+  const { user, error, account, isUserError, isUserLoading } = useAuth();
   const router = useRouter();
 
   const { mutate } = useMutation(
@@ -34,14 +35,20 @@ export default function Transfer() {
 
   if (isUserLoading) return <Loading />;
 
-  if (isUserError) return <p>Error...</p>;
+  if (isUserError) {
+    console.error(error);
+    return <p>Error...</p>;
+  }
 
-  if (!user) return <p>Sign In pls</p>;
+  if (!user) {
+    router.push("/signin");
+    return <></>;
+  }
 
   if (!account) return <CreateAccount />;
 
   return (
-    <div className="">
+    <AppLayout>
       <Formik
         initialValues={{
           amount_in_cents: "0",
@@ -53,7 +60,6 @@ export default function Transfer() {
           { setSubmitting, resetForm }: FormikHelpers<Values>
         ) => {
           setTimeout(() => {
-            // alert(JSON.stringify(values));
             mutate(values);
             resetForm();
             setSubmitting(false);
@@ -108,6 +114,6 @@ export default function Transfer() {
           <button type="submit">Submit</button>
         </Form>
       </Formik>
-    </div>
+    </AppLayout>
   );
 }

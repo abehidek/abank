@@ -7,5 +7,5 @@ import type { AuthContextDataProps } from "./AuthContext";
 export function useAuth(): AuthContextDataProps {
   const context = useContext(AuthContext);
 
-  return context as AuthContextDataProps;
+  return context;
 }
