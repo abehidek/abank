@@ -16,9 +16,14 @@ export default function Navbar() {
         {user ? (
           <>
             {account ? (
-              <h3>
-                <Link href="/cards">Cards</Link>
-              </h3>
+              <>
+                <h3>
+                  <Link href="/cards">Cards</Link>
+                </h3>
+                <h3>
+                  <Link href="/transfer">Transfer</Link>
+                </h3>
+              </>
             ) : null}
 
             <h3>Hello {user.email}</h3>

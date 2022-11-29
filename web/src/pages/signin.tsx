@@ -29,7 +29,7 @@ const SignIn: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div>
+      <div className="flex flex-col items-center gap-3">
         <h1 className="text-2xl font-bold">Log in</h1>
 
         <Formik

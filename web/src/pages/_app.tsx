@@ -10,8 +10,10 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
-        <Navbar />
-        <Component {...pageProps} />
+        <div className="flex h-screen w-screen flex-col">
+          <Navbar />
+          <Component {...pageProps} />
+        </div>
       </AuthContextProvider>
     </QueryClientProvider>
   );

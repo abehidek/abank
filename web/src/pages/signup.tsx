@@ -31,7 +31,7 @@ const Signup: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div>
+      <div className="flex flex-col items-center gap-3">
         <h1 className="text-2xl font-bold">Sign Up</h1>
         <Formik
           initialValues={{ email: "", password: "", address: "", cpf: "" }}
