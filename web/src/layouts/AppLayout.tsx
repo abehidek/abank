@@ -38,12 +38,14 @@ export default function AppLayout({ children }: AppLayoutProps) {
   }
 
   return (
-    <main className="flex min-h-screen w-full gap-6 lg:grid-cols-main">
-      <div className="sticky top-0 z-50 min-h-screen self-start bg-red-200">
+    <div className="flex h-full w-full lg:grid-cols-main lg:justify-between">
+      <div className="sticky top-0 z-50 min-h-screen self-start bg-[#0e0e0e]">
         <Navbar />
       </div>
 
-      <div className="ml-10 w-full md:ml-0">{children({ user, account })}</div>
-    </main>
+      <main className="ml-16 h-screen w-full overflow-scroll px-2 py-6 sm:px-8 md:ml-0 lg:px-48">
+        {children({ user, account })}
+      </main>
+    </div>
   );
 }
