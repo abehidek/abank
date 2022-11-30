@@ -1,13 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import type { NextPage } from "next";
-import { useRouter } from "next/router";
 import { api, requestInit } from "../../auth/AuthContext";
-import { useAuth } from "../../auth/useAuth";
-import Card from "../../components/Card";
-import CreateAccount from "../../components/CreateAccount";
 import CreateCard from "../../components/CreateCard";
 import ListCards from "../../components/ListCards";
 import Loading from "../../components/Loading";
+import Error from "../../components/Error";
 import AppLayout from "../../layouts/AppLayout";
 
 export interface CardDTO {
@@ -25,8 +22,6 @@ interface CardsQuery {
 }
 
 const Cards: NextPage = () => {
-  const { user, account, isUserError, error, isUserLoading } = useAuth();
-  const router = useRouter();
   const {
     data,
     isLoading,
@@ -36,21 +31,12 @@ const Cards: NextPage = () => {
     fetch(api + "/cards", { ...requestInit }).then((res) => res.json())
   );
 
-  if (isUserLoading || isLoading) return <Loading />;
+  if (isLoading) return <Loading />;
 
-  if (isUserError || isError) {
-    console.error(error);
+  if (isError) {
     console.error(cardError);
-    return <p>Error...</p>;
+    return <Error />;
   }
-
-  if (!user) {
-    router.push("/signin");
-    return <></>;
-  }
-
-  if (!account) return <CreateAccount />;
-
   const debitCards = data.cards
     ? data.cards.filter((card) => card.type == "debit")
     : undefined;
@@ -60,15 +46,21 @@ const Cards: NextPage = () => {
 
   return (
     <AppLayout>
-      <CreateCard />
-      {data.cards ? (
-        <div>
-          <ListCards cards={debitCards} type="Debit" user={user} />
-          <ListCards cards={creditCards} type="Credit" user={user} />
-        </div>
-      ) : (
-        <p>No cards found</p>
-      )}
+      {({ user }) => {
+        return (
+          <>
+            <CreateCard />
+            {data.cards ? (
+              <div>
+                <ListCards cards={debitCards} type="Debit" user={user} />
+                <ListCards cards={creditCards} type="Credit" user={user} />
+              </div>
+            ) : (
+              <p>No cards found</p>
+            )}
+          </>
+        );
+      }}
     </AppLayout>
   );
 };
