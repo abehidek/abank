@@ -51,14 +51,14 @@ export default function CreateCard() {
     <>
       <div
         onClick={openModal}
-        className="relative h-56 w-96 transform cursor-pointer rounded-xl bg-gray-400 text-white shadow-2xl transition-transform hover:scale-105"
+        className="relative max-h-56 max-w-sm transform cursor-pointer rounded-xl bg-gray-400 text-white shadow-2xl transition-transform hover:scale-105"
       >
         <div className="flex h-full items-center justify-center text-5xl">
           +
         </div>
       </div>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog as="div" className="relative z-50" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
