@@ -42,9 +42,9 @@ export default function Navbar() {
 
   return (
     <div
-      className={`absolute min-h-screen bg-[#0e0e0e] md:relative ${
+      className={`absolute h-screen bg-[#0e0e0e] md:relative ${
         open ? "w-72" : "w-16"
-      } px-4 text-gray-100 duration-500`}
+      }  overflow-y-auto overflow-x-hidden px-4 py-4 text-gray-100 duration-500`}
     >
       <div className="flex justify-end py-3">
         <List size={32} onClick={() => setOpen(!open)} />
@@ -64,8 +64,8 @@ export default function Navbar() {
               style={{
                 transitionDelay: `${i + 3}00ms`,
               }}
-              className={`whitespace-pre duration-500 ${
-                !open && "translate-x-28 overflow-hidden opacity-0"
+              className={`overflow-hidden whitespace-pre duration-500 ${
+                !open && "translate-x-28 opacity-0"
               }`}
             >
               {menu?.name}
@@ -73,7 +73,7 @@ export default function Navbar() {
             <h2
               className={`${
                 open && "hidden"
-              } absolute left-48 z-50 w-0 overflow-hidden whitespace-pre rounded-md bg-white px-0 py-0 font-semibold text-gray-900 drop-shadow-lg group-hover:left-14 group-hover:w-fit group-hover:px-2 group-hover:py-1 group-hover:duration-300 `}
+              } absolute left-48 z-50 w-0 whitespace-pre rounded-md bg-white px-0 py-0 font-semibold text-gray-900 opacity-0 drop-shadow-lg group-hover:left-14 group-hover:w-fit group-hover:px-2 group-hover:py-1 group-hover:opacity-100 group-hover:duration-300 `}
             >
               {menu?.name}
             </h2>

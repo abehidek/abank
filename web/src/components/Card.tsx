@@ -18,7 +18,7 @@ export default function Card(props: CardProps) {
   return (
     <div
       ref={ref}
-      style={{ fontSize: width / 28 }}
+      style={{ fontSize: width / 26 }}
       className="relative max-h-56 max-w-sm transform rounded-xl text-white shadow-2xl"
     >
       <picture>
