@@ -11,11 +11,13 @@ import {
   SignOut,
   User,
 } from "phosphor-react";
-import { useState, createElement } from "react";
+import { createElement } from "react";
+import { useTheme } from "../theme/useTheme";
 
 export default function Navbar() {
   const { user, account, isUserLoading } = useAuth();
-  const [open, setOpen] = useState(false);
+  const { isSideBarOpen: open, setIsSideBarOpen: setOpen } = useTheme();
+  // const [open, setOpen] = useState(false);
 
   if (isUserLoading) return <Loading />;
 
@@ -53,7 +55,6 @@ export default function Navbar() {
         {menus?.map((menu, i) => (
           <Link
             href={"/app" + menu?.link}
-            onClick={() => setOpen(false)}
             key={i}
             className={` ${menu?.account && !account && "hidden"} ${
               menu?.margin && "mt-5"
