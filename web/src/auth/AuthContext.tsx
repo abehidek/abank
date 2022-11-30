@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import type { UseMutateFunction } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 
 export interface AuthProps {
   account?: Account;
@@ -64,6 +65,7 @@ export const requestInit: RequestInit = {
 };
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
+  const router = useRouter();
   const {
     data,
     error,
@@ -102,7 +104,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
       }).then((res) => res.json()),
     {
       onSettled: () => {
-        userRefetch();
+        router.push("/signin");
       },
     }
   );
