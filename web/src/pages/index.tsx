@@ -15,7 +15,7 @@ const Home: NextPage = () => {
 
   return (
     <HeroLayout>
-      <h1>Beautiful index page here pls</h1>
+      <h1>The bank for the 21st century</h1>
       <Link href="/signin">Sign In</Link>
       <Link href="/signup">Sign Up</Link>
     </HeroLayout>
