@@ -1,7 +1,7 @@
 import { useState, Fragment } from "react";
 import type { ChangeEvent } from "react";
 import { Dialog, Tab, Transition } from "@headlessui/react";
-import Button from "./Button";
+import { Button } from "./Button";
 import clsx from "clsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api, requestInit } from "../auth/AuthContext";

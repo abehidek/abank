@@ -49,7 +49,7 @@ export default function Navbar() {
       }  overflow-y-auto overflow-x-hidden px-4 py-4 text-gray-100 duration-500`}
     >
       <div className="flex justify-end py-3">
-        <List size={32} onClick={() => setOpen(!open)} />
+        <List size={30} onClick={() => setOpen(!open)} />
       </div>
       <div className="relative mt-4 flex flex-col gap-4">
         {menus?.map((menu, i) => (
