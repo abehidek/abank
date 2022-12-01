@@ -5,6 +5,7 @@ import AppLayout from "../../layouts/AppLayout";
 import { ListTransactions } from "../../components/transaction/ListTransactions";
 import { Error } from "../../components/Error";
 import { CreateTransaction } from "../../components/transaction/CreateTransaction";
+import { CreateDeposit } from "../../components/transaction/CreateDeposit";
 
 export default function Transactions() {
   const {
@@ -27,6 +28,7 @@ export default function Transactions() {
     <AppLayout>
       {({}) => (
         <>
+          <CreateDeposit />
           <CreateTransaction />
           <ListTransactions transactions={data.transactions} />
         </>

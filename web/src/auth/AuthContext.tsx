@@ -2,6 +2,12 @@ import { createContext } from "react";
 import type { ReactNode } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
+import type {
+  QueryObserverResult,
+  RefetchOptions,
+  RefetchQueryFilters,
+} from "@tanstack/react-query";
+
 import type { UseMutateFunction } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
@@ -34,6 +40,9 @@ export type AuthContextDataProps = {
   isUserLoading: boolean;
   isUserError: boolean;
   error: any;
+  userRefetch: <TPageData>(
+    options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
+  ) => Promise<QueryObserverResult<any, unknown>>;
   signIn: UseMutateFunction<any, unknown, SignInValues, unknown>;
   signUp: UseMutateFunction<any, unknown, SignUpValues, unknown>;
   signOut: () => Promise<void>;
@@ -144,6 +153,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
         isUserError,
         error,
         isUserLoading,
+        userRefetch,
         signIn,
         signUp,
         signOut,

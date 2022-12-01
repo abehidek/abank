@@ -1,4 +1,4 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { FormikHelpers } from "formik";
 import { useMutation } from "@tanstack/react-query";
 import { api, requestInit } from "../../auth/AuthContext";
@@ -10,11 +10,10 @@ import { useAuth } from "../../auth/useAuth";
 
 interface Values {
   amount_in_cents: string;
-  to_account_number: string;
-  type: "pix" | "ted";
+  type: "deposit";
 }
 
-export function CreateTransaction() {
+export function CreateDeposit() {
   const router = useRouter();
   const { userRefetch } = useAuth();
 
@@ -35,19 +34,17 @@ export function CreateTransaction() {
   );
   return (
     <div>
-      <Heading size="lg">Create Transaction</Heading>
+      <Heading size="lg">Deposit</Heading>
       <Formik
         initialValues={{
           amount_in_cents: "0",
-          to_account_number: "",
-          type: "pix",
+          type: "deposit",
         }}
         onSubmit={(
           values: Values,
           { setSubmitting, resetForm }: FormikHelpers<Values>
         ) => {
           setTimeout(() => {
-            console.log(values);
             mutate(values);
             resetForm();
             setSubmitting(false);
@@ -64,37 +61,8 @@ export function CreateTransaction() {
             required
           />
 
-          <Input
-            id="to_account_number"
-            label="Type the receiver's account number"
-            placeholder="39752152"
-            isFormikInput={true}
-            required
-          />
-
-          <Input
-            id="transaction-type-group"
-            label="What is the transaction type?"
-            isTextInput={false}
-          >
-            <div
-              role="group"
-              aria-labelledby="transaction-type-group"
-              className="flex gap-3"
-            >
-              <label>
-                <Field type="radio" name="type" value="pix" />
-                Pix
-              </label>
-              <label>
-                <Field type="radio" name="type" value="ted" />
-                TED
-              </label>
-            </div>
-          </Input>
-
           <Button variant="contained" type="submit">
-            Transfer
+            Deposit
           </Button>
         </Form>
       </Formik>
