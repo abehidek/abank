@@ -1,23 +1,15 @@
 import type { NextPage } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useAuth } from "../auth/useAuth";
 import HeroLayout from "../layouts/HeroLayout";
 
 const Home: NextPage = () => {
-  const router = useRouter();
-  const { user } = useAuth();
-
-  if (user) {
-    router.push("/app");
-    return <></>;
-  }
-
   return (
     <HeroLayout>
-      <h1>The bank for the 21st century</h1>
-      <Link href="/signin">Sign In</Link>
-      <Link href="/signup">Sign Up</Link>
+      <div className="flex flex-col items-center justify-center">
+        <h1 className="text-3xl font-bold">The bank for the 21st century</h1>
+        <Image alt="Stonks meme" src="/hero.jpg" height={500} width={500} />
+      </div>
     </HeroLayout>
   );
 };

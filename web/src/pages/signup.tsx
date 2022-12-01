@@ -6,6 +6,9 @@ import { Loading } from "../components/Loading";
 import { useRouter } from "next/router";
 import { useAuth } from "../auth/useAuth";
 import HeroLayout from "../layouts/HeroLayout";
+import { Input } from "../components/Input";
+import { Heading } from "../components/Heading";
+import { Button } from "../components/Button";
 
 interface Values {
   email: string;
@@ -32,8 +35,8 @@ const Signup: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="flex flex-col items-center gap-3">
-        <h1 className="text-2xl font-bold">Sign Up</h1>
+      <div className="flex max-w-lg flex-col gap-3">
+        <Heading size="lg">Sign Up</Heading>
         <Formik
           initialValues={{ email: "", password: "", address: "", cpf: "" }}
           onSubmit={(
@@ -47,31 +50,38 @@ const Signup: NextPage = () => {
             }, 500);
           }}
         >
-          <Form className="flex flex-col items-center gap-4 p-5">
-            <label className="text-xl font-bold" htmlFor="email">
-              Email
-            </label>
-            <Field
-              type="email"
+          <Form className="flex flex-col gap-4">
+            <Input
               id="email"
-              name="email"
+              type="email"
+              label="What is your email?"
               placeholder="john@doe.com"
+              isFormikInput={true}
             />
-            <label className="text-xl font-bold" htmlFor="password">
-              Password
-            </label>
-            <Field id="password" name="password" placeholder="******" />
-
-            <label className="text-xl font-bold" htmlFor="address">
-              Address
-            </label>
-            <Field id="address" name="address" placeholder="St John Doe 777" />
-
-            <label className="text-xl font-bold" htmlFor="cpf">
-              cpf
-            </label>
-            <Field id="cpf" name="cpf" placeholder="123.456.789-10" />
-            <button type="submit">Submit</button>
+            <Input
+              id="password"
+              type="password"
+              label="Type your password"
+              placeholder="************"
+              isFormikInput={true}
+            />
+            <Input
+              id="address"
+              type="text"
+              label="What is your address?"
+              placeholder="St John Doe 777"
+              isFormikInput={true}
+            />
+            <Input
+              id="cpf"
+              type="text"
+              label="What is your CPF?"
+              placeholder="12345678910"
+              isFormikInput={true}
+            />
+            <Button variant="contained" type="submit">
+              Sign Up
+            </Button>
           </Form>
         </Formik>
       </div>

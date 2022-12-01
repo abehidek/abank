@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Navbar } from "../components/Navbar";
 
 interface HeroLayoutProps {
   children: ReactNode;
@@ -6,9 +7,9 @@ interface HeroLayoutProps {
 
 export default function HeroLayout({ children }: HeroLayoutProps) {
   return (
-    <main>
-      <p>Hero!!</p>
-      {children}
-    </main>
+    <div>
+      <Navbar />
+      <main>{children}</main>
+    </div>
   );
 }

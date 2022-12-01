@@ -1,6 +1,6 @@
 import React from "react";
 import type { ReactNode } from "react";
-import { Navbar } from "../components/Navbar";
+import { Sidebar } from "../components/Sidebar";
 import { Loading } from "../components/Loading";
 import { useRouter } from "next/router";
 import { useAuth } from "../auth/useAuth";
@@ -31,7 +31,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
   if (!account) {
     return (
       <main className="flex gap-6">
-        <Navbar />
+        <Sidebar />
         <CreateAccount />
       </main>
     );
@@ -40,7 +40,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
   return (
     <div className="flex h-full w-full lg:grid-cols-main lg:justify-between">
       <div className="sticky top-0 z-50 min-h-screen self-start bg-black">
-        <Navbar />
+        <Sidebar />
       </div>
 
       <main className="ml-16 h-screen w-full overflow-scroll px-2 py-6 sm:px-8 md:ml-0 lg:px-48">

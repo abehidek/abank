@@ -6,6 +6,9 @@ import { useAuth } from "../auth/useAuth";
 import { Loading } from "../components/Loading";
 import { useRouter } from "next/router";
 import HeroLayout from "../layouts/HeroLayout";
+import { Input } from "../components/Input";
+import { Button } from "../components/Button";
+import { Heading } from "../components/Heading";
 
 interface Values {
   email: string;
@@ -30,8 +33,8 @@ const SignIn: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="flex flex-col items-center gap-3">
-        <h1 className="text-2xl font-bold">Log in</h1>
+      <div className="flex max-w-lg flex-col gap-3">
+        <Heading size="lg">Sign In</Heading>
 
         <Formik
           initialValues={{ email: "", password: "" }}
@@ -46,21 +49,25 @@ const SignIn: NextPage = () => {
             }, 500);
           }}
         >
-          <Form className="flex flex-col items-center gap-4 p-5">
-            <label className="text-xl font-bold" htmlFor="email">
-              Email
-            </label>
-            <Field
-              type="email"
+          <Form className="flex flex-col gap-4">
+            <Input
               id="email"
-              name="email"
+              type="email"
+              label="What is your email?"
               placeholder="john@doe.com"
+              isFormikInput={true}
             />
-            <label className="text-xl font-bold" htmlFor="password">
-              Password
-            </label>
-            <Field id="password" name="password" placeholder="******" />
-            <button type="submit">Submit</button>
+
+            <Input
+              id="password"
+              type="password"
+              label="Type your password"
+              placeholder="************"
+              isFormikInput={true}
+            />
+            <Button variant="contained" type="submit">
+              Sign In
+            </Button>
           </Form>
         </Formik>
       </div>

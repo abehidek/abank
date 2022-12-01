@@ -6,7 +6,6 @@ export default function SignOut() {
   const router = useRouter();
 
   signOut();
-  router.push("/");
 
   return <></>;
 }

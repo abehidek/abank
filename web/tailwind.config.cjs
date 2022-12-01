@@ -14,6 +14,7 @@ module.exports = {
       lg: 20,
       xl: 24,
       '2xl': 32,
+      '3xl': 72,
     },
     extend: {
       gridTemplateColumns: {
