@@ -28,7 +28,8 @@ defmodule Abank.Transactions.Handler do
     transaction.inserted_at
   end
 
-  defp normal_transaction(transaction, from_account, to_account) when is_map(to_account) do
+  defp normal_transaction(transaction, from_account, to_account)
+       when is_map(to_account) and is_map(from_account) do
     if Accounts.sufficient_balance?(transaction.amount_in_cents, from_account) do
       with {:ok, result} <-
              Abank.Repo.transaction(fn ->
@@ -65,12 +66,31 @@ defmodule Abank.Transactions.Handler do
     end
   end
 
-  defp normal_transaction(
-         %Transaction{type: "loan_payment"} = transaction,
-         from_account,
-         to_account
-       )
-       when is_nil(to_account) do
+  defp normal_transaction(%Transaction{type: "deposit"} = transaction, nil, to_account) do
+    with {:ok, result} <-
+           Abank.Repo.transaction(fn ->
+             to_account
+             |> Ecto.Changeset.change(
+               balance_in_cents: to_account.balance_in_cents + transaction.amount_in_cents
+             )
+             |> Abank.Repo.update!()
+
+             transaction
+             |> Ecto.Changeset.change(status: "approved")
+             |> Abank.Repo.update!()
+           end) do
+      {:ok, %{result: result}}
+    else
+      {:error, result} ->
+        IO.inspect(result)
+        {:error, %{result: "Something bad happened", status: 500}}
+
+      _ ->
+        {:error, %{result: "Something really bad happened", status: 500}}
+    end
+  end
+
+  defp normal_transaction(%Transaction{type: "loan_payment"} = transaction, from_account, nil) do
     if Accounts.sufficient_balance?(transaction.amount_in_cents, from_account) do
       with {:ok, %Loan{} = approved_or_late_loan} <-
              from_account.number |> Loans.get_approved_or_late_loan(),
@@ -170,23 +190,39 @@ defmodule Abank.Transactions.Handler do
 
   def run_transaction(%Transaction{} = transaction) do
     # get account by number from transaction
-    with {:ok, from_account} <- Accounts.get_account_by_number(transaction.from_account_number) do
-      case Accounts.get_account_by_number(transaction.to_account_number) do
-        {:ok, to_account} ->
-          case transaction.type do
-            "credit" -> credit_transaction(transaction, from_account, to_account)
-            _ -> normal_transaction(transaction, from_account, to_account)
-          end
 
-        {:error, %{result: "Account not found", status: 403}} ->
-          nil
+    cond do
+      transaction.from_account_number ->
+        with {:ok, from_account} <-
+               Accounts.get_account_by_number(transaction.from_account_number) do
+          case Accounts.get_account_by_number(transaction.to_account_number) do
+            {:ok, to_account} ->
+              case transaction.type do
+                "credit" -> credit_transaction(transaction, from_account, to_account)
+                _ -> normal_transaction(transaction, from_account, to_account)
+              end
 
-        nil ->
-          case transaction.type do
-            "credit" -> {:error, %{result: "Credit transfer to bank not allowed", status: 403}}
-            _ -> normal_transaction(transaction, from_account, nil)
+            {:error, %{result: "Account not found", status: 403}} ->
+              nil
+
+            nil ->
+              case transaction.type do
+                "credit" ->
+                  {:error, %{result: "Credit transfer to bank not allowed", status: 403}}
+
+                _ ->
+                  normal_transaction(transaction, from_account, nil)
+              end
           end
-      end
+        end
+
+      transaction.to_account_number ->
+        with {:ok, to_account} <- Accounts.get_account_by_number(transaction.to_account_number) do
+          case transaction.type do
+            "deposit" -> normal_transaction(transaction, nil, to_account)
+            _ -> {:error, %{result: "Transaction not supported", status: 400}}
+          end
+        end
     end
   end
 end

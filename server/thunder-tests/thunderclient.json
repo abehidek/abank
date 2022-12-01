@@ -28,11 +28,11 @@
     "colId": "b1e0d164-15a3-413f-9354-c27b929e7a75",
     "containerId": "1fc3314c-01bf-4bc9-a17e-1797292d1cfa",
     "name": "Show",
-    "url": "localhost:4000/api/test/accounts",
+    "url": "localhost:4000/api/accounts",
     "method": "GET",
     "sortNum": 10000,
     "created": "2022-11-25T14:25:54.667Z",
-    "modified": "2022-11-25T14:25:54.667Z",
+    "modified": "2022-12-01T02:29:08.304Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -223,6 +223,25 @@
     "body": {
       "type": "json",
       "raw": "{\n  \"amount_in_cents\": 1000\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "ca81a697-1fa9-4d1e-a0e8-16d82b76c2a0",
+    "colId": "b1e0d164-15a3-413f-9354-c27b929e7a75",
+    "containerId": "83e68024-1a42-4970-8e49-09265206e255",
+    "name": "Create Deposit Transaction",
+    "url": "localhost:4000/api/transactions",
+    "method": "POST",
+    "sortNum": 25000,
+    "created": "2022-12-01T02:27:48.068Z",
+    "modified": "2022-12-01T02:28:35.418Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"amount_in_cents\": 700,\n  \"type\": \"deposit\"\n}",
       "form": []
     },
     "tests": []

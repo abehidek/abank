@@ -32,11 +32,33 @@ defmodule Abank.Transactions do
     |> handle_create()
   end
 
+  def create_from_bank_transaction(params) do
+    params
+    |> Transaction.from_bank_transaction_changeset()
+    |> Abank.Repo.insert()
+    |> handle_create()
+  end
+
   defp handle_create({:ok, %Transaction{} = transaction} = _result) do
     Scheduler.run_transaction(transaction)
   end
 
   defp handle_create({:error, result}), do: {:error, %{result: result, status: :bad_request}}
+
+  def transfer(%{"type" => "deposit"} = params, user) do
+    with {:ok, to_account} <- Accounts.get_account_by_user(user) do
+      result =
+        params
+        |> Map.put("to_account_number", to_account.number)
+        |> Map.delete("from_account_number")
+        |> Map.put("status", "open")
+        |> Map.delete("card_number")
+        |> IO.inspect(label: "PARAMS")
+        |> create_from_bank_transaction()
+
+      with {:ok, transaction} <- result, do: {:ok, transaction}
+    end
+  end
 
   def transfer(%{"type" => type} = params, user) do
     with {:ok, from_account} <- Accounts.get_account_by_user(user) do
