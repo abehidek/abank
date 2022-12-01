@@ -14,7 +14,7 @@ export function Text({ size = "md", children, asChild, className }: TextProps) {
   return (
     <Comp
       className={clsx(
-        "font-sans text-black",
+        "font-sans",
         {
           "text-xs": size === "sm",
           "text-sm": size === "md",

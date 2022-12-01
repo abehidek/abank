@@ -21,7 +21,7 @@ export function ListTransactions({ transactions }: ListTransactionsProps) {
   return (
     <div>
       <Heading size="lg">Transaction History</Heading>
-      <ul>
+      <ul className="flex flex-col gap-6">
         {!transactions || transactions.length === 0 ? (
           <Text>There is no transactions found in this accont</Text>
         ) : (
@@ -38,13 +38,29 @@ export function ListTransactions({ transactions }: ListTransactionsProps) {
 
 export function Transaction({ transaction }: { transaction: Transaction }) {
   return (
-    <div>
-      <h2>Status: {transaction.status}</h2>
-      <h2>From {transaction.from_account_number}</h2>
-      <h2>To {transaction.to_account_number}</h2>
-      <h3>{transaction.type}</h3>
+    <div className="flex flex-col gap-2 rounded-md bg-black px-8 py-3 text-white">
+      <div className="flex justify-between">
+        <Text size="md">Status: {transaction.status.toUpperCase()}</Text>
+        <Text size="md">Type: {transaction.type.toUpperCase()}</Text>
+      </div>
+
+      <div className="flex justify-between">
+        <Text>
+          {transaction.from_account_number
+            ? `From ${transaction.from_account_number}`
+            : `From Bank`}
+        </Text>
+        <Text>
+          {transaction.to_account_number
+            ? `To ${transaction.to_account_number}`
+            : `To Bank`}
+        </Text>
+      </div>
+
       {transaction.card_number ? <h3>{transaction.card_number}</h3> : null}
-      <Currency amountInCents={transaction.amount_in_cents} />
+      <Text size="lg">
+        Amount: <Currency amountInCents={transaction.amount_in_cents} />
+      </Text>
     </div>
   );
 }
