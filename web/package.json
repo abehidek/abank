@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.4",
+    "@radix-ui/react-slot": "^1.0.1",
     "@tanstack/react-query": "^4.14.6",
     "clsx": "^1.2.1",
     "daisyui": "^2.42.1",
