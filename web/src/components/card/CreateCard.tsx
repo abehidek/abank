@@ -1,17 +1,17 @@
 import { useState, Fragment } from "react";
 import type { ChangeEvent } from "react";
 import { Dialog, Tab, Transition } from "@headlessui/react";
-import { Button } from "./Button";
+import { Button } from "../Button";
 import clsx from "clsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { api, requestInit } from "../auth/AuthContext";
+import { api, requestInit } from "../../auth/AuthContext";
 
 interface Values {
   type: "credit" | "debit";
   limit?: number;
 }
 
-export default function CreateCard() {
+export function CreateCard() {
   const [isOpen, setIsOpen] = useState(false);
   const [limit, setLimit] = useState(0);
 
@@ -51,10 +51,10 @@ export default function CreateCard() {
     <>
       <div
         onClick={openModal}
-        className="relative max-h-56 max-w-sm transform cursor-pointer rounded-xl bg-gray-400 text-white shadow-2xl transition-transform hover:scale-105"
+        className="relative max-h-56 max-w-sm transform cursor-pointer rounded-xl bg-black py-6 text-white shadow-2xl transition-transform hover:scale-105"
       >
-        <div className="flex h-full items-center justify-center text-5xl">
-          +
+        <div className="flex h-full items-center justify-center text-xl font-bold">
+          Create new card
         </div>
       </div>
       <Transition appear show={isOpen} as={Fragment}>
@@ -85,18 +85,19 @@ export default function CreateCard() {
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="text-gray-900 text-lg font-medium leading-6"
                   >
                     Creating a new card
                   </Dialog.Title>
 
                   <div className="mt-4">
                     <Tab.Group>
-                      <Tab.List className="flex justify-around rounded bg-gray-300 p-1">
+                      <Tab.List className="flex justify-around rounded bg-black p-1">
                         <Tab
                           className={({ selected }) =>
                             clsx("w-full rounded py-2", {
                               "bg-white": selected,
+                              "text-white": !selected,
                             })
                           }
                         >
@@ -106,6 +107,7 @@ export default function CreateCard() {
                           className={({ selected }) =>
                             clsx("w-full rounded py-2", {
                               "bg-white": selected,
+                              "text-white": !selected,
                             })
                           }
                         >

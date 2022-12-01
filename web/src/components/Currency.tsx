@@ -2,6 +2,6 @@ interface Props {
   amountInCents: number;
 }
 
-export default function Currency(props: Props) {
+export function Currency(props: Props) {
   return <span>R$ {props.amountInCents / 100}</span>;
 }

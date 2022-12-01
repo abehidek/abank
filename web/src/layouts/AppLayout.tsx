@@ -1,12 +1,12 @@
 import React from "react";
 import type { ReactNode } from "react";
-import Navbar from "../components/Navbar";
-import Loading from "../components/Loading";
+import { Navbar } from "../components/Navbar";
+import { Loading } from "../components/Loading";
 import { useRouter } from "next/router";
 import { useAuth } from "../auth/useAuth";
-import CreateAccount from "../components/CreateAccount";
+import { CreateAccount } from "../components/account/CreateAccount";
 import type { Account, User } from "../auth/AuthContext";
-import Error from "../components/Error";
+import { Error } from "../components/Error";
 
 interface AppLayoutProps {
   children: ({ account, user }: { account: Account; user: User }) => ReactNode;
@@ -39,7 +39,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
 
   return (
     <div className="flex h-full w-full lg:grid-cols-main lg:justify-between">
-      <div className="sticky top-0 z-50 min-h-screen self-start bg-[#0e0e0e]">
+      <div className="sticky top-0 z-50 min-h-screen self-start bg-black">
         <Navbar />
       </div>
 

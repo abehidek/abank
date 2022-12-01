@@ -1,4 +1,6 @@
-import Currency from "./Currency";
+import { Currency } from "../Currency";
+import { Heading } from "../Heading";
+import { Text } from "../Text";
 
 interface Transaction {
   type: string;
@@ -15,21 +17,20 @@ interface ListTransactionsProps {
   transactions: Transaction[] | undefined;
 }
 
-export default function ListTransactions({
-  transactions,
-}: ListTransactionsProps) {
-  if (!transactions || transactions.length === 0)
-    return <p>There is no transaction for this account</p>;
-
+export function ListTransactions({ transactions }: ListTransactionsProps) {
   return (
     <div>
-      <h1>Transaction History</h1>
+      <Heading size="lg">Transaction History</Heading>
       <ul>
-        {transactions.map((transaction) => (
-          <li key={transaction.id}>
-            <Transaction transaction={transaction} />
-          </li>
-        ))}
+        {!transactions || transactions.length === 0 ? (
+          <Text>There is no transactions found in this accont</Text>
+        ) : (
+          transactions.map((transaction) => (
+            <li key={transaction.id}>
+              <Transaction transaction={transaction} />
+            </li>
+          ))
+        )}
       </ul>
     </div>
   );

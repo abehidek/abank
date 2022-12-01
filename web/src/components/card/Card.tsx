@@ -10,7 +10,7 @@ interface CardProps {
   type: "debit" | "credit";
 }
 
-export default function Card(props: CardProps) {
+export function Card(props: CardProps) {
   const ref = useRef(null);
 
   const { width } = useContainerDimensions(ref);

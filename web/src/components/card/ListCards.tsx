@@ -1,7 +1,9 @@
-import Card from "./Card";
+import { Card } from "./Card";
 
-import type { CardDTO } from "../pages/app/cards";
-import type { User } from "../auth/AuthContext";
+import type { CardDTO } from "../../pages/app/cards";
+import type { User } from "../../auth/AuthContext";
+import { Heading } from "../Heading";
+import { Text } from "../Text";
 
 interface ListCardsProps {
   cards: CardDTO[] | undefined;
@@ -9,13 +11,12 @@ interface ListCardsProps {
   type: "Debit" | "Credit";
 }
 
-export default function ListCards({ cards, user, type }: ListCardsProps) {
-  console.log(cards);
+export function ListCards({ cards, user, type }: ListCardsProps) {
   return (
     <div className="flex flex-col gap-6">
+      <Heading size="md">{type} cards</Heading>
       {cards && cards.length !== 0 ? (
         <>
-          <h2>{type} cards</h2>
           {cards.map((card) => (
             <div key={card.id}>
               <Card
@@ -29,7 +30,7 @@ export default function ListCards({ cards, user, type }: ListCardsProps) {
           ))}
         </>
       ) : (
-        <p>No {type} cards</p>
+        <Text>No {type} cards found for this account</Text>
       )}
     </div>
   );

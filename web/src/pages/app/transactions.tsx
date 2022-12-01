@@ -1,15 +1,12 @@
-import Loading from "../../components/Loading";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { Loading } from "../../components/Loading";
+import { useQuery } from "@tanstack/react-query";
 import { api, requestInit } from "../../auth/AuthContext";
-import { useRouter } from "next/router";
 import AppLayout from "../../layouts/AppLayout";
-import ListTransactions from "../../components/ListTransactions";
-import Error from "../../components/Error";
-import CreateTransaction from "../../components/CreateTransactions";
+import { ListTransactions } from "../../components/transaction/ListTransactions";
+import { Error } from "../../components/Error";
+import { CreateTransaction } from "../../components/transaction/CreateTransaction";
 
 export default function Transactions() {
-  const router = useRouter();
-
   const {
     data,
     isError,

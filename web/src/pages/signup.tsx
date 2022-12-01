@@ -2,7 +2,7 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import { Field, Form, Formik } from "formik";
 import type { FormikHelpers } from "formik";
-import Loading from "../components/Loading";
+import { Loading } from "../components/Loading";
 import { useRouter } from "next/router";
 import { useAuth } from "../auth/useAuth";
 import HeroLayout from "../layouts/HeroLayout";

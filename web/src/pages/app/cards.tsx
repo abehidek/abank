@@ -1,11 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import type { NextPage } from "next";
 import { api, requestInit } from "../../auth/AuthContext";
-import CreateCard from "../../components/CreateCard";
-import ListCards from "../../components/ListCards";
-import Loading from "../../components/Loading";
-import Error from "../../components/Error";
+import { CreateCard } from "../../components/card/CreateCard";
+import { ListCards } from "../../components/card/ListCards";
+import { Loading } from "../../components/Loading";
+import { Error } from "../../components/Error";
 import AppLayout from "../../layouts/AppLayout";
+import { Heading } from "../../components/Heading";
+import { Text } from "../../components/Text";
 
 export interface CardDTO {
   account_number: string;
@@ -48,7 +50,8 @@ const Cards: NextPage = () => {
     <AppLayout>
       {({ user }) => {
         return (
-          <>
+          <div className="flex flex-col gap-4">
+            <Heading size="lg">Your cards</Heading>
             <CreateCard />
             {data.cards ? (
               <div>
@@ -56,9 +59,9 @@ const Cards: NextPage = () => {
                 <ListCards cards={creditCards} type="Credit" user={user} />
               </div>
             ) : (
-              <p>No cards found</p>
+              <Text>No cards found for this account</Text>
             )}
-          </>
+          </div>
         );
       }}
     </AppLayout>
