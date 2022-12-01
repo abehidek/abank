@@ -12,6 +12,7 @@ specifiers:
   autoprefixer: ^10.4.7
   clsx: ^1.2.1
   daisyui: ^2.42.1
+  date-fns: ^2.29.3
   eslint: ^8.26.0
   eslint-config-next: 13.0.2
   formik: ^2.2.9
@@ -32,6 +33,7 @@ dependencies:
   '@tanstack/react-query': 4.14.6_biqbaboplfbrettd7655fr4n2y
   clsx: 1.2.1
   daisyui: 2.42.1_2lwn2upnx27dqeg6hqdu7sq75m
+  date-fns: 2.29.3
   formik: 2.2.9_react@18.2.0
   next: 13.0.2_biqbaboplfbrettd7655fr4n2y
   phosphor-react: 1.4.1_react@18.2.0
@@ -777,6 +779,11 @@ packages:
   /damerau-levenshtein/1.0.8:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==}
     dev: true
+
+  /date-fns/2.29.3:
+    resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==}
+    engines: {node: '>=0.11'}
+    dev: false
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}

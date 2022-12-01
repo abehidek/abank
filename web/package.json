@@ -14,6 +14,7 @@
     "@tanstack/react-query": "^4.14.6",
     "clsx": "^1.2.1",
     "daisyui": "^2.42.1",
+    "date-fns": "^2.29.3",
     "formik": "^2.2.9",
     "next": "13.0.2",
     "phosphor-react": "^1.4.1",

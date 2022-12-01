@@ -20,7 +20,7 @@ defmodule Abank.Transactions.Transaction do
                 x == :from_account_number
             end)
 
-  @derive {Jason.Encoder, only: @fields ++ [:id]}
+  @derive {Jason.Encoder, only: @fields ++ [:id, :inserted_at]}
 
   schema "transactions" do
     field :type, :string
@@ -112,7 +112,8 @@ defmodule Abank.Transactions.Transaction do
       from transaction in __MODULE__,
         where:
           transaction.from_account_number == ^account_number or
-            transaction.to_account_number == ^account_number
+            transaction.to_account_number == ^account_number,
+        order_by: [desc: :inserted_at]
 
     {:ok, query}
   end
