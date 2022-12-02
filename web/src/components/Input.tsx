@@ -28,7 +28,7 @@ export function Input({
       </label>
       {isTextInput ? (
         <Comp
-          className={clsx("input-bordered input w-full", {}, className)}
+          className={clsx("input-bordered input w-full text-lg", {}, className)}
           id={id}
           name={id}
           {...props}

@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { FormikHelpers } from "formik";
 import { Loading } from "../components/Loading";
 import { useRouter } from "next/router";
@@ -24,7 +24,7 @@ const Signup: NextPage = () => {
   if (isUserLoading) return <Loading />;
 
   if (user) {
-    router.push("/");
+    router.push("/app");
   }
 
   return (

@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { FormikHelpers } from "formik";
 import { useAuth } from "../auth/useAuth";
 import { Loading } from "../components/Loading";
@@ -22,7 +22,7 @@ const SignIn: NextPage = () => {
   if (isUserLoading) return <Loading />;
 
   if (user) {
-    router.push("/");
+    router.push("/app");
   }
 
   return (
@@ -33,7 +33,7 @@ const SignIn: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="flex max-w-lg flex-col gap-3">
+      <div className="flex max-w-2xl flex-col gap-3">
         <Heading size="lg">Sign In</Heading>
 
         <Formik
