@@ -6,7 +6,7 @@ defmodule AbankWeb.UserSessionController do
   action_fallback AbankWeb.FallbackController
 
   @max_age 60 * 60 * 24 * 60
-  @session_cookie [sign: true, max_age: @max_age, same_site: "Lax"]
+  @session_cookie [sign: true, max_age: @max_age, same_site: "None", secure: true]
 
   def create(conn, %{"email" => email, "password" => password}) do
     IO.inspect(email)
