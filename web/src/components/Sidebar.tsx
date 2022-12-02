@@ -31,13 +31,6 @@ export function Sidebar() {
       account: true,
     },
     { name: "Loans", link: "/loans", icon: Money, margin: true, account: true },
-    {
-      name: "Settings",
-      link: "/settings",
-      icon: Gear,
-      margin: true,
-      account: true,
-    },
     { name: user?.email, link: "/user", icon: User },
     { name: "Sign out", link: "/signout", icon: SignOut },
   ];
@@ -58,7 +51,7 @@ export function Sidebar() {
             key={i}
             className={` ${menu?.account && !account && "hidden"} ${
               menu?.margin && "mt-5"
-            } hover:bg-gray-800 group flex items-center  gap-3.5 rounded-md p-2 text-sm font-medium`}
+            } group flex items-center gap-3.5  rounded-md p-2 text-sm font-medium hover:bg-gray-800`}
           >
             <div>{createElement(menu?.icon, { size: "20" })}</div>
             <h2
@@ -74,7 +67,7 @@ export function Sidebar() {
             <h2
               className={`${
                 open && "hidden"
-              } text-gray-900 absolute left-48 z-50 w-0 whitespace-pre rounded-md bg-white px-0 py-0 font-semibold opacity-0 drop-shadow-lg group-hover:left-14 group-hover:w-fit group-hover:px-2 group-hover:py-1 group-hover:opacity-100 group-hover:duration-300 `}
+              } absolute left-48 z-50 w-0 whitespace-pre rounded-md bg-white px-0 py-0 font-semibold text-gray-900 opacity-0 drop-shadow-lg group-hover:left-14 group-hover:w-fit group-hover:px-2 group-hover:py-1 group-hover:opacity-100 group-hover:duration-300 `}
             >
               {menu?.name}
             </h2>

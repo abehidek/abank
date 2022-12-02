@@ -16,6 +16,7 @@ defmodule Abank.Application do
       {Phoenix.PubSub, name: Abank.PubSub},
       Abank.Transactions.Scheduler,
       Abank.Invoices.Scheduler,
+      Abank.Loans.Scheduler,
       # Start the Endpoint (http/https)
       AbankWeb.Endpoint
       # Start a worker by calling: Abank.Worker.start_link(arg)

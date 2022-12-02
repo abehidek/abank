@@ -19,7 +19,7 @@ export function Heading({
   return (
     <Comp
       className={clsx(
-        "font-sans font-bold text-black",
+        "font-sans font-bold",
         {
           "text-lg": size === "sm",
           "text-xl": size === "md",

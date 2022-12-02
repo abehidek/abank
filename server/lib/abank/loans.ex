@@ -1,7 +1,14 @@
 defmodule Abank.Loans do
   alias Abank.Transactions
-  alias Abank.Loans.Loan
+  alias Abank.Loans.{Loan, Scheduler}
   alias Abank.Accounts
+
+  def get_one(user) do
+    with {:ok, account} <- Accounts.get_account_by_user(user) do
+      # |> Map.put("account_number", account.number)
+      get_approved_or_late_loan(account.number)
+    end
+  end
 
   def create(params) do
     params
@@ -20,7 +27,10 @@ defmodule Abank.Loans do
     end
   end
 
-  defp handle_create({:ok, %Loan{}} = result), do: result
+  defp handle_create({:ok, %Loan{} = loan} = _result) do
+    Scheduler.run_open_loan(loan)
+  end
+
   defp handle_create({:error, result}), do: {:error, %{result: result, status: :bad_request}}
 
   def get_approved_or_late_loan(account_number) do

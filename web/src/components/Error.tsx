@@ -4,6 +4,7 @@ import { Heading } from "./Heading";
 import { Text } from "./Text";
 
 export function Error({ error }: { error?: any }) {
+  console.error(error);
   return (
     <div className="flex h-screen w-full flex-1 flex-col items-center justify-center gap-3">
       <Heading size="lg">Something wrong happened</Heading>
