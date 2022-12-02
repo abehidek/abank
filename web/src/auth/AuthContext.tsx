@@ -63,7 +63,8 @@ export type SignUpValues = {
   password: string;
 };
 
-export const api = process.env.API_URL || "http://localhost:4000/api";
+export const api =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
 
 export const requestInit: RequestInit = {
   mode: "cors",
