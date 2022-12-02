@@ -2,3 +2,4 @@
 .direnv
 .nix-hex
 .nix-mix
+.env

@@ -5,16 +5,12 @@ import { Error } from "../../components/Error";
 import { Heading } from "../../components/Heading";
 import { Loading } from "../../components/Loading";
 import AppLayout from "../../layouts/AppLayout";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { FormikHelpers } from "formik";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/router";
-import { useAuth } from "../../auth/useAuth";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
-import { Text } from "../../components/Text";
 import { Currency } from "../../components/Currency";
-import { date } from "zod";
 
 interface Values {
   amount_in_cents: string;
@@ -23,10 +19,10 @@ interface Values {
 export interface Loan {
   amount_in_cents: number;
   status: string;
-  loan_due_date: Date;
+  loan_due_date: string;
   account_number: string;
   id: number;
-  inserted_at: Date;
+  inserted_at: string;
 }
 
 const Loans: NextPage = () => {
