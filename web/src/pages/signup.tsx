@@ -3,6 +3,7 @@ import Head from "next/head";
 import { Form, Formik } from "formik";
 import type { FormikHelpers } from "formik";
 import { Loading } from "../components/Loading";
+import { Error } from "../components/Error";
 import { useRouter } from "next/router";
 import { useAuth } from "../auth/useAuth";
 import HeroLayout from "../layouts/HeroLayout";
@@ -19,9 +20,11 @@ interface Values {
 
 const Signup: NextPage = () => {
   const router = useRouter();
-  const { user, isUserLoading, signUp } = useAuth();
+  const { user, isUserLoading, isUserError, signUp } = useAuth();
 
   if (isUserLoading) return <Loading />;
+
+  if (isUserError) return <Error />;
 
   if (user) {
     router.push("/app");

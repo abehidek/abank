@@ -7,9 +7,11 @@ interface HeroLayoutProps {
 
 export default function HeroLayout({ children }: HeroLayoutProps) {
   return (
-    <div>
+    <div className="flex h-screen w-full flex-col overflow-y-scroll">
       <Navbar />
-      <main className="px-2 py-6 sm:px-8 md:ml-0 lg:px-48">{children}</main>
+      <main className="w-full overflow-y-scroll px-2 py-6 sm:px-8 md:ml-0 md:px-16 lg:px-48">
+        {children}
+      </main>
     </div>
   );
 }

@@ -6,6 +6,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   asChild?: boolean;
   variant?: "text" | "contained" | "outlined";
+  size?: "sm" | "md" | "lg";
 }
 
 export function Button({
@@ -13,6 +14,7 @@ export function Button({
   className,
   asChild = false,
   variant = "text",
+  size = "md",
   ...props
 }: ButtonProps) {
   const Comp = asChild ? Slot : "button";
@@ -20,11 +22,14 @@ export function Button({
     <Comp
       type="button"
       className={clsx(
-        "inline-flex justify-center rounded-md border px-5 py-3 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+        "inline-flex cursor-pointer justify-center rounded-md border font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
         {
           "border-transparent text-black": variant === "text",
           "border-black text-black": variant === "outlined",
           "bg-black text-white": variant === "contained",
+          "px-5 py-3 text-sm": size === "sm",
+          "px-7 py-5 text-md": size === "md",
+          "px-9 py-6 text-lg": size === "lg",
         },
         className
       )}
