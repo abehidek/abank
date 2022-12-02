@@ -14,6 +14,11 @@ config :abank, AbankWeb.Endpoint, cache_static_manifest: "priv/static/cache_mani
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :cors_plug,
+  origin: ["https://abank.vercel.app"],
+  max_age: 86400,
+  methods: ["GET", "POST", "DELETE", "PATCH", "PUT", "OPTIONS"]
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
