@@ -21,7 +21,7 @@ interface ListTransactionsProps {
 
 export function ListTransactions({ transactions }: ListTransactionsProps) {
   return (
-    <div>
+    <div id="list-transactions">
       <Heading size="lg">Transaction History</Heading>
       <ul className="flex flex-col gap-6">
         {!transactions || transactions.length === 0 ? (

@@ -33,7 +33,7 @@ export function CreateDeposit() {
     }
   );
   return (
-    <div>
+    <div id="create-deposit">
       <Heading size="lg">Deposit</Heading>
       <Formik
         initialValues={{

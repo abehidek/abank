@@ -34,7 +34,7 @@ export function CreateTransaction() {
     }
   );
   return (
-    <div>
+    <div id="create-transaction">
       <Heading size="lg">Create Transaction</Heading>
       <Formik
         initialValues={{
