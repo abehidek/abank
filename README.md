@@ -1,6 +1,6 @@
 <h1 align="center">
-  <br>
-  Logo in progress...
+  <!--<br>
+  Logo in progress... -->
   <br>
   Abank
   <br>
