@@ -17,7 +17,7 @@
   <a href="#about">About</a> •
   <a href="#key-features">Key Features</a> •
   <a href="#getting-started">Getting Started</a> •
-  <a href="#faq">FAQ</a> •
+  <!-- <a href="#faq">FAQ</a> • -->
   <a href="#roadmap">Roadmap</a> •
   <!-- <a href="#support">Support</a> • -->
   <a href="#license">License</a>
@@ -95,20 +95,18 @@ $ pnpm install
 $ pnpm run dev
 ```
 
+<!--
 ## FAQ
 
 ### Is it any good?
 
 [yes.](https://news.ycombinator.com/item?id=3067434)
+-->
 
 ## Roadmap
 
 - [x] Start this README using [abehidek's template](https://github.com/abehidek/readme).
 - [ ] Add the Roadmap section for README
-
-## Emailware
-
-[Project's name] is an [emailware](https://en.wiktionary.org/wiki/emailware). Meaning, if you liked using this app or it has helped you in any way, I'd like you send me an email at <your-email@email.com> about anything you'd want to say about this software. I'd really appreciate it!
 
 ## Contributing
 
@@ -158,6 +156,6 @@ List of apps or libs that do similar stuff as your project.
 
 ---
 
-> [abehidek.me](https://abehidek.me) &nbsp;&middot;&nbsp;
+> [hidek.xyz](https://hidek.xyz) &nbsp;&middot;&nbsp;
 > GitHub [@abehidek](https://github.com/abehidek) &nbsp;&middot;&nbsp;
 > Twitter [@guilhermehabe](https://twitter.com/guilhermehabe)
